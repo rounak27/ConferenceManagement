@@ -11,14 +11,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tbl_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('FName');
+            $table->string('MName')->nullable();
+            $table->string('LName')->nullable();
             $table->string('email')->unique();
+            $table->string('MobileNo')->unique();
+            $table->string('Gender')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('Verified')->default(false);
+            // PAymentStatus bool
+            $table->boolean('PaymentStatus')->default(false);
+            // MemberType int
+            $table->integer('MemberType')->default(0);
+            // NepasID string
+            $table->string('NepasID')->nullable();
+            // MedicalCounsilNo string
+            $table->string('MedicalCouncilNo')->nullable();
+            // Country string
+            $table->string('Country')->nullable();
+            // Address string
+            $table->string('Address')->nullable();
+            $table->string('QrImage')->nullable();            
             $table->rememberToken();
             $table->timestamps();
+            
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -42,7 +61,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tbl_users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

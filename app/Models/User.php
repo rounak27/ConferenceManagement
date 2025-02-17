@@ -3,11 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Mail\CustomVerificationMail;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Mail;
+use URL;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -18,8 +23,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'FName',
+        'LName',
         'email',
+        'MobileNo',
+        'Gender',
+        'Country',
+        'Address',
         'password',
     ];
 
@@ -32,7 +42,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    protected $table = 'tbl_users';
     /**
      * Get the attributes that should be cast.
      *
@@ -42,7 +52,31 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            
         ];
+    }
+    protected function getUserData()
+    {
+        $user=Auth::user();
+        $userData=User::find($user->id);
+        return $userData;
+    }
+    public function sendEmailVerificationNotification()
+    {
+
+        Mail::to($this->email)->send(new CustomVerificationMail($this));
+        MailTrack::create([
+            'user_id' => $this->id,
+            'email' => $this->email,
+            'subject' => 'Verification Email',
+            'status' => 'sent',
+        ]);
+    }
+    public function verificationUrl()
+    {
+        return URL::signedRoute('verification.verify', [
+            'id' => $this->getKey(),
+            'hash' => sha1($this->getEmailForVerification()),
+        ]);
     }
 }
