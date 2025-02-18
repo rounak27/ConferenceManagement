@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AbstractContentController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthenticateWithError;
@@ -15,7 +17,12 @@ Route::get('/index', function () {
 Route::get('/', function () {
     return view('mainlayout');
 });
-
+Route::get('/guidelines', function () {
+    return view('guidelines.abstractGuideline');
+});
+Route::get('/general-instruction', function () {
+    return view('guidelines.generalInstruction');
+});
 Route::get('/register', [UserController::class, 'register']);
 Route::post('/register', [UserController::class, 'InsertUser']);
 
@@ -36,24 +43,44 @@ Route::middleware(['auth.error'])->group(function () {
 // Email verification notice route
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->name('verification.notice');
 
+Route::get('/verify-email', function () {
+    $user = Auth::user();
+    if ($user->hasVerifiedEmail()) {
+        return redirect()->route('profile');
+    }
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    $user = $request->user();
-    $user->Verified = 1; // Set IsVerified to 1
-    $user->save();
-    return redirect('/profile')->with('success', 'Email verified successfully');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    $user->sendEmailVerificationNotification();
+    return back()->with('success', 'Verification link sent!');
+    
+})->middleware(['auth', 'throttle:6,1'])->name('verify-email');
 
+Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
+    $user = User::findOrFail($id); // Find user manually
+    // dd($user);
+    if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        abort(403, 'Invalid verification link.');
+    }
+
+    if (!$user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified(); // Mark as verified
+        $user->Verified = 1; // Custom field for verification
+        $user->save();
+        event(new Verified($user)); // Fire verification event
+    }
+
+    return view('email.verification_success', ['success' => 'Email verified successfully']);
+})->name('verification.verify');
 
 // Resend verification email
 Route::post('/email/resend', function (Request $request) {
-    if ($request->user()->hasVerifiedEmail()) {        
+    if (Auth::user()->hasVerifiedEmail()) {        
         return redirect('/profile');
     }
-    $request->user()->sendEmailVerificationNotification();
+    
+    Auth::user()->sendEmailVerificationNotification();
 
-    return back()->with('message', 'Verification link sent!');
+    return back()->with('success', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+// Route::get('/normalview', [UserController::class, 'normalview'])->name('profile');

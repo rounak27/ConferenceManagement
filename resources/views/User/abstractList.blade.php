@@ -33,8 +33,10 @@
                                 <td><span class="badge m-0 badge-{{ $abstract->Status == 1 ? 'success' : 'danger' }}">{{ $abstract->Status == 1 ? 'Approved' : 'Not Approved' }}</span></td>
                                 <td>{{ $abstract->created_at->format('d-m-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('abstractedit', ['id' => encrypt($abstract->id)]) }}" class="btn btn-primary">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('abstractedit', ['id' => encrypt($abstract->id)]) }}" class="btn ">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <a href="" class="btn "><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

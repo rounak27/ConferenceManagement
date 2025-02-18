@@ -21,7 +21,8 @@
                                 <label for="abstract_content" class="form-label">Abstract Content</label>
                                 <textarea class="form-control" id="abstract_content" name="abstract_content"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-success">Submit Abstract</button>
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                            <a class="btn btn-light" href="{{ route('abstractlist') }}">Cancel</a>
                         </form>
                     </div>   
                 </div>

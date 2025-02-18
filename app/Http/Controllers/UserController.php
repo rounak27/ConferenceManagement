@@ -15,7 +15,9 @@ class UserController extends Controller
 {
     public function register()
     {
-
+        if (Auth::check()) {
+            return redirect()->route('profile');
+        }
         return view('User.register');
     }
     //
@@ -52,15 +54,16 @@ class UserController extends Controller
         ]);
         
         
+        Auth::login($user);
+        $request->session()->regenerate();
         event(new Registered($user));
         // Mail::to($user->email)->send(new CustomVerificationMail($user));
 
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
         
-        Auth::login($user);
-        session(['user' => $user]);
+        // session(['user' => $user]);
         // return redirect(route('profile', absolute: false));
-        return redirect('/email/verify')->with('message', 'Please verify your email');
+        return redirect(route('verification.notice'))->with('message', 'Please verify your email');
     }
     public function updateUser(Request $request)
 {
@@ -95,6 +98,9 @@ class UserController extends Controller
     public function login()
     {
         // dd('login');
+        if (Auth::check()) {
+            return redirect()->route('profile');
+        }
         return view('User.login');
     }
     public function ValidateLogin(Request $request)
@@ -146,6 +152,11 @@ class UserController extends Controller
         // Redirect to the login page after logout
         return redirect()->route('login');
     }
+
     
+    // public function normalview()
+    // {
+    //     return view('User.normalview');
+    // }
 
 }

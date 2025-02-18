@@ -1,13 +1,11 @@
 
 @extends('layout')
 @section('css')
-<link rel="stylesheet" href="{{asset('vendors/toastr/toastr.min.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('vendors/toastr/toastr.min.css')}}"> --}}
 @endsection
 @section('content')
 <div class="col-12 grid-margin">
     <div class="card">
-        
-
       <div class="card-body">
         <h4 class="card-title">Edit your profile</h4>
         <form class="form-sample" id="signupForm" action="{{ url('updateProfile') }}" method="post">
@@ -122,6 +120,18 @@
                 </div>
               </div>
             </div>
+            
+            <div class="row">
+            @if($userData->Verified==false)
+            <p class=""> Your email is not verified:
+            
+              <a href="{{route('verify-email')}}" class="auth-link text-black">Verify Email</a>
+            
+            </p>
+            @endif
+          </div>
+            
+
             <button type="submit" class="btn btn-primary me-2">Submit</button>
           </form>                    
       </div>
@@ -129,7 +139,7 @@
   </div>
 @endsection
 @section('js')
-<script src="{{asset('vendors/toastr/toastr.min.js')}}"></script>
+{{-- <script src="{{asset('vendors/toastr/toastr.min.js')}}"></script> --}}
 <script src="{{asset('js/user-profile.js')}}"></script>
 @endsection
 

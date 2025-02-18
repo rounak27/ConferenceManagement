@@ -63,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function sendEmailVerificationNotification()
     {
-
+        // dd($this->email);
         Mail::to($this->email)->send(new CustomVerificationMail($this));
         MailTrack::create([
             'user_id' => $this->id,
@@ -71,6 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'subject' => 'Verification Email',
             'status' => 'sent',
         ]);
+        // return view('auth.verify-email');
     }
     public function verificationUrl()
     {

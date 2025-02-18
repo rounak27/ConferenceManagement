@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('vendors/typicons/typicons.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/simple-line-icons/css/simple-line-icons.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/toastr/toastr.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
     
     <!-- endinject -->
@@ -24,7 +25,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     @yield('css')
     <!-- endinject -->
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
   </head>
   <body class="with-welcome-text">
     <div class="container-scroller">
@@ -40,10 +41,10 @@
           </div>
           <div>
             <a class="navbar-brand brand-logo" href="index.html">
-              <img src="assets/images/logo.svg" alt="logo" />
+              <img src="{{asset('images/logo.svg')}}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
-              <img src="assets/images/logo-mini.svg" alt="logo" />
+              <img src="{{asset('images/logo-mini.svg')}}" alt="logo" />
             </a>
           </div>
         </div>
@@ -63,11 +64,11 @@
                 <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <img class="img-md rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image" style="width: 100px; height: 100px;">
+                  <img class="img-md rounded-circle" src="{{asset('images/faces/face8.jpg')}}" style="width: 100px; height: 100px;" alt="Profile image">
                   <p class="mb-1 mt-3 fw-semibold">{{$userData->FName}}{{$userData->Mname??''}} {{$userData->LName}}</p>
                   <p class="fw-light text-muted mb-0">{{$userData->email}}</p>
                 </div>
-                <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile </a>
+                <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile  <span class="badge badge-pill badge-{{$userData->Verified==1?'success':'danger'}}">{{$userData->Verified==1?'✅':'❌' }}</span> </a>
                 
                 <a class="dropdown-item" href="{{route('logout')}}"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
               </div>
@@ -90,57 +91,8 @@
               </a>
             </li>
             <li class="nav-item nav-category">UI Elements</li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-floor-plan"></i>
-                <span class="menu-title">UI Elements</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                <i class="menu-icon mdi mdi-card-text-outline"></i>
-                <span class="menu-title">Form elements</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="form-elements">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                <i class="menu-icon mdi mdi-chart-line"></i>
-                <span class="menu-title">Charts</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="charts">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                <i class="menu-icon mdi mdi-table"></i>
-                <span class="menu-title">Tables</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="tables">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
+            
+            {{-- <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
                 <i class="menu-icon mdi mdi-layers-outline"></i>
                 <span class="menu-title">Icons</span>
@@ -151,8 +103,8 @@
                   <li class="nav-item"> <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a></li>
                 </ul>
               </div>
-            </li>
-            <li class="nav-item">
+            </li> --}}
+            {{-- <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
                 <span class="menu-title">User Pages</span>
@@ -167,7 +119,7 @@
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
                 </ul>
               </div>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a class="nav-link" href="{{route('abstractlist')}}">
                 <i class="menu-icon mdi mdi-file-document"></i>
@@ -181,7 +133,7 @@
           <div class="content-wrapper">
             <div class="row">
               <div class="col-sm-12">
-                <div class="home-tab">
+                <div class="">
                   <div class="tab-content tab-content-basic">@yield('content')</div>
                 </div>
               </div>
@@ -203,12 +155,14 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+
     <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
     <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="{{asset('vendors/chart.js/chart.umd.js')}}"></script>
     <script src="{{asset('vendors/progressbar.js/progressbar.min.js')}}"></script>
+    <script src="{{asset('vendors/toastr/toastr.min.js')}}"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{asset('js/off-canvas.js')}}"></script>
