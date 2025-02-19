@@ -19,6 +19,12 @@
   // iconify.load('icons.svg').then(function() {
   //   iconify(document.querySelector('.my-cool.icon'));
   // });
+  
+
+  
+})(jQuery);
+
+$(document).ready(function() {
   var success=$('#msg').data('success');
     var error=$('#msg').data('error');
     if(success){
@@ -29,5 +35,4 @@
         toastr.error(error);
     }
 
-  
-})(jQuery);
+});

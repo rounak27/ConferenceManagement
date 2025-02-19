@@ -15,7 +15,7 @@ class AbstractContentController extends Controller
     public function listAbstract()
     {
         $userData=User::getUserData();
-        $abstracts = AbstractContent::all()->where('UserId', $userData->id);
+        $abstracts = AbstractContent::all()->where('UserId', $userData->id)->where('IsActive',true);
         // dd($abstracts);
         // $id=encrypt($abstracts[0]->id);
         // dd(decrypt($id));
@@ -38,7 +38,16 @@ class AbstractContentController extends Controller
         $abstract->UserId=(int)$request->user_id;
         // dd($abstract);
         $abstract->save();
+        $userData=User::findOrFail((int)$request->user_id);
+        $abstract->sendAbstractVerificationNotification($userData);
         return redirect()->route('abstractlist')->with('success','Abstract submitted successfully');
+    }
+    public function delete(Request $request)
+    {
+        $abstract=AbstractContent::findOrFail((int)$request->abstractId);
+        $abstract->IsActive=false;
+        $abstract->save();
+        return redirect()->route('abstractlist')->with('success','Abstract deleted successfully');
     }
     public function edit($id)
     {

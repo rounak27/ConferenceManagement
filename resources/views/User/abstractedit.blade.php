@@ -3,6 +3,14 @@
 <link rel="stylesheet" href="{{asset('vendors/toastr/toastr.min.css')}}">
 @endsection
 @section('content')
+@php
+// dd($abstract);
+    if($abstract->IsAccepted == 1){
+        $disabled = 'disabled';
+    }else{
+        $disabled = '';
+    }
+@endphp
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
@@ -15,13 +23,15 @@
                             <input type="hidden" name="id" value="{{$abstract->id}}">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" value="{{$abstract->TopicTitle}}" required>
+                                <input type="text" class="form-control" id="title" name="title" value="{{$abstract->TopicTitle}}" required {{$disabled}}>
                             </div>
                             <div class="mb-3">
                                 <label for="abstract_content" class="form-label">Abstract Content</label>
-                                <textarea class="form-control" id="abstract_content" name="abstract_content">{{$abstract->AbstractContent}}</textarea>
+                                <textarea class="form-control" id="abstract_content" name="abstract_content" {{$disabled}}>{{$abstract->AbstractContent}}</textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary me-2">Edit Abstract</button>
+                            @if($abstract->IsAccepted == 0)
+                            <button type="submit" class="btn btn-primary me-2" >Edit Abstract</button>
+                            @endif
                             <a class="btn btn-light" href="{{ route('abstractlist') }}">Cancel</a>
                         </form>
                     </div>   

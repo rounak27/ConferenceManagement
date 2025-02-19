@@ -45,7 +45,7 @@
     @endif
 
     <div class="card">
-        <img src="https://via.placeholder.com/100" alt="Verification Icon" class="mb-3">
+        <img src="{{asset('images/nepasLogo.svg')}}" alt="Verification Icon" class="mb-3">
         <h3>Email Verification Required</h3>
         <p>Before proceeding, please check your email for a verification link.</p>
         <p>If you did not receive the email, click below:</p>

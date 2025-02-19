@@ -16979,6 +16979,9 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   --bs-text-opacity: 1;
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
+.text-red{
+  color: #e63232;
+}
 
 .text-body {
   --bs-text-opacity: 1;
@@ -28588,7 +28591,7 @@ dl li {
 .sidebar .nav .nav-item.active > .nav-link i,
 .sidebar .nav .nav-item.active > .nav-link .menu-title,
 .sidebar .nav .nav-item.active > .nav-link .menu-arrow {
-  color: #1F3BB3;
+  color:#e63232
 }
 .purple .sidebar .nav .nav-item.active > .nav-link i,
 .purple .sidebar .nav .nav-item.active > .nav-link .menu-title,
@@ -28613,7 +28616,7 @@ dl li {
 .sidebar .nav .nav-item:hover > .nav-link i,
 .sidebar .nav .nav-item:hover > .nav-link .menu-title,
 .sidebar .nav .nav-item:hover > .nav-link .menu-arrow {
-  color: #1F3BB3;
+  color:#e63232
 }
 .sidebar .nav .nav-item.nav-category {
   color: #404040;

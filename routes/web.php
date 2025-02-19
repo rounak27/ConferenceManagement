@@ -39,6 +39,7 @@ Route::middleware(['auth.error'])->group(function () {
     Route::get('/abstractlist', [AbstractContentController::class, 'listAbstract'])->name('abstractlist');
     Route::get('/abstractedit/{id}', [AbstractContentController::class, 'edit'])->name('abstractedit');
     Route::post('/abstractupdate', [AbstractContentController::class, 'update'])->name('abstract.update');
+    Route::post('/abstractdelete', [AbstractContentController::class, 'delete'])->name('abstract.delete');
 });
 // Email verification notice route
 Route::get('/email/verify', function () {
@@ -50,10 +51,8 @@ Route::get('/verify-email', function () {
     if ($user->hasVerifiedEmail()) {
         return redirect()->route('profile');
     }
-
     $user->sendEmailVerificationNotification();
     return back()->with('success', 'Verification link sent!');
-    
 })->middleware(['auth', 'throttle:6,1'])->name('verify-email');
 
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
@@ -78,9 +77,7 @@ Route::post('/email/resend', function (Request $request) {
     if (Auth::user()->hasVerifiedEmail()) {        
         return redirect('/profile');
     }
-    
     Auth::user()->sendEmailVerificationNotification();
-
     return back()->with('success', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 // Route::get('/normalview', [UserController::class, 'normalview'])->name('profile');

@@ -29,8 +29,8 @@
           <div class="row w-100 mx-0">
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                <div class="brand-logo">
-                  <img src="images/logo.svg" alt="logo">
+                <div class="brand-logo p-1" style="background-color: #500af4;border-radius: 10px;">
+                  <img src="{{asset('images/nepasLogo.svg')}}" alt="logo" style="width:280px;height:88px;">
                 </div>
                 <h4>Hello! let's get started</h4>
                 <h6 class="fw-light">Sign in to continue.</h6>
@@ -43,7 +43,7 @@
                     <input type="password" class="form-control form-control-lg" id="Password" name="password" placeholder="Password">
                   </div>
                   <div class="mt-3 d-grid gap-2">
-                    <button type="submit" class="btn btn-block btn-primary btn-lg fw-medium auth-form-btn">SIGN IN</button>
+                    <button type="submit" class="btn btn-block btn-danger btn-lg fw-medium auth-form-btn">SIGN IN</button>
                   </div>
                   <div class="my-2 d-flex justify-content-between align-items-center">
                     <div class="form-check">

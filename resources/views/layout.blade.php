@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/toastr/toastr.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
-    
+    <link rel="stylesheet" href="{{asset('vendors/datatables-responsive/css/responsive.bootstrap4.css')}}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
@@ -23,6 +23,16 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <style>
+      .toast-success {
+          background-color: #51a351 !important;
+          color: #fff !important;
+      }
+      .toast-error {
+          background-color: #bd362f !important;
+          color: #fff !important;
+      }
+      </style>
     @yield('css')
     <!-- endinject -->
     <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
@@ -32,34 +42,34 @@
       <div style="display:none" id="base_url">{{url("/")}}</div>
       <div class="card "id="msg" data-success='{{ session("success") }}' data-error='{{ session("error") }}'>
       <!-- partial:partials/_navbar.html -->
-      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row" style="background-color: #1b4aa9;">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start" style="background-color: #1b4aa9;">
           <div class="me-3">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
               <span class="icon-menu"></span>
             </button>
           </div>
           <div>
-            <a class="navbar-brand brand-logo" href="index.html">
-              <img src="{{asset('images/logo.svg')}}" alt="logo" />
+            <a class="navbar-brand brand-logo p-1" style="border-radius: 10px;"  href="index.html">
+              <img src="{{asset('images/nepasLogo.svg')}}" alt="logo" style="width: 200px; height: 50px;scale: 120%;"/>
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
-              <img src="{{asset('images/logo-mini.svg')}}" alt="logo" />
+              <img src="{{asset('images/nepasLogoSmall.png')}}" alt="logo" style="scale:1.5;" />
             </a>
           </div>
         </div>
-        <div class="navbar-menu-wrapper d-flex align-items-top">
+        <div class="navbar-menu-wrapper d-flex align-items-top" style="background-color: #1b4aa9;">
           <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-              <h1 class="welcome-text">Hello, <span class="text-black fw-bold">{{$userData->FName}}{{$userData->Mname??''}} {{$userData->LName}}</span></h1>
-              <h3 class="welcome-sub-text">Your performance summary this week </h3>
+              <h1 class="welcome-text">Hello, <span class="text-white fw-bold">{{$userData->FName}}{{$userData->Mname??''}} {{$userData->LName}}</span></h1>
+              <h3 class="welcome-sub-text">Your All Information </h3>
             </li>
           </ul>
           <ul class="navbar-nav ms-auto">
+              
             
             
-            
-            <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+            <li class="nav-item dropdown  user-dropdown">
               <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -83,7 +93,9 @@
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          
           <ul class="nav">
+            
             <li class="nav-item">
               <a class="nav-link" href="{{route('profile')}}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
@@ -158,6 +170,8 @@
 
     <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
     <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('vendors/datatables.net/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('vendors/datatables-responsive/js/dataTables.responsive.js')}}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="{{asset('vendors/chart.js/chart.umd.js')}}"></script>
@@ -170,6 +184,7 @@
     <script src="{{asset('js/settings.js')}}"></script>
     <script src="{{asset('js/hoverable-collapse.js')}}"></script>
     <script src="{{asset('js/todolist.js')}}"></script>
+    
     
     <!-- endinject -->
     <!-- Custom js for this page-->

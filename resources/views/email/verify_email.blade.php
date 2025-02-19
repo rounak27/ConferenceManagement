@@ -43,7 +43,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://via.placeholder.com/150" alt="Nepas Conference Logo" class="logo">
+        <img src="{{asset('images/nepasLogo.svg')}}" alt="Nepas Conference Logo" class="logo">
         <h2>Welcome, {{ $user->Fname }} {{ $user->Lname }}!</h2>
         <p>Thank you for registering at <strong>Nepas Conference</strong>. Please verify your email by clicking the button below:</p>
 
