@@ -63,14 +63,27 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function sendEmailVerificationNotification()
     {
-        // dd($this->email);
-        Mail::to($this->email)->send(new CustomVerificationMail($this));
-        MailTrack::create([
-            'user_id' => $this->id,
-            'email' => $this->email,
-            'subject' => 'Verification Email',
-            'status' => 'sent',
-        ]);
+        try{
+            // dd($this->email);
+            $mail = Mail::to($this->email)->send(new CustomVerificationMail($this));
+            //  Mail::to($this->email)->send(new CustomVerificationMail($this));
+        // dd($mail);
+            MailTrack::create([
+                'user_id' => $this->id,
+                'email' => $this->email,
+                'subject' => 'Verification Email',
+                'status' => 'sent',
+            ]);
+            return true;
+        }catch(\Exception $e){
+            MailTrack::create([
+                'user_id' => $this->id,
+                'email' => $this->email,
+                'subject' => 'Verification Email',
+                'status' => 'failed',
+            ]);
+            return false;
+        }
         // return view('auth.verify-email');
     }
     public function verificationUrl()

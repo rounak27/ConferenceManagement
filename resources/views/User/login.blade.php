@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
+    <title>NEPCON 2025-Login </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/feather/feather.css">
     <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
@@ -17,10 +17,11 @@
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
+    
     <!-- inject:css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="{{asset('images/nepaslogoSmall.png')}}" />
   </head>
   <body>
     <div class="container-scroller">
@@ -50,14 +51,14 @@
                       <label class="form-check-label text-muted">
                         <input type="checkbox" class="form-check-input" name="RememberMe" id="RememberMe"> Keep me signed in </label>
                     </div>
-                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                    
                   </div>
                   @if(session('error'))
                     <div class="alert alert-danger">
                       {{ session('error') }}
                     </div>
                   @endif
-                 
+                  <a href="{{url('/')}}" class="auth-link text-black">Home Page</a>
 
                   <div class="text-center mt-4 fw-light"> Don't have an account? <a href="{{url('register')}}" class="text-primary">Create</a>
                   </div>

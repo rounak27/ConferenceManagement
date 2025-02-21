@@ -1,4 +1,20 @@
 $(document).ready(function() {
+  var success=$('#msg').data('success');
+  console.log(success,"success");
+    var error=$('#msg').data('error');
+    console.log(error,"error");
+    var warning=$('#msg').data('warning');
+    console.log(warning,"warning");
+    if(success){
+        console.log(success,"success");
+        toastr.success(success);
+    }
+    if(error){
+        toastr.error(error);
+    }
+    if(warning){
+        toastr.warning(warning);
+    }
     // Email Validation
     $('#Email').on('input', function() {
       var email = $(this).val();
@@ -74,5 +90,6 @@ $(document).ready(function() {
         this.submit();
       }
     });
+    
   });
   

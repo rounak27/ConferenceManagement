@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\CustomVerificationMail;
 use App\Models\MailTrack;
+use App\Models\MemberType;
 use Cookie;
 use Hash;
 use Illuminate\Auth\Events\Registered;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use Validator;
 class UserController extends Controller
 {
     public function register()
@@ -18,7 +20,8 @@ class UserController extends Controller
         if (Auth::check()) {
             return redirect()->route('profile');
         }
-        return view('User.register');
+        $memberTypes=MemberType::where('IsActive',1)->get();
+        return view('User.register',['memberTypes'=>$memberTypes]);
     }
     //
     public function profile()
@@ -27,43 +30,67 @@ class UserController extends Controller
         //  dd($userData);
         // dd($user);
         // dd($user->FName);
-        return view('User.profile',['userData'=>$userData]);
+        $memberTypes=MemberType::where('IsActive',1)->get();
+        return view('User.profile',['userData'=>$userData,'memberTypes'=>$memberTypes]);
     }
 
     public function InsertUser(Request $request)
     {
-        // dd($request->all());
+        $validator=Validator::make($request->all(),[
+            'g-recaptcha-response' => 'required|captcha', // Correct rule
+        ]);
+        if($validator->fails()){
+            return redirect()->route('register')->with('error', 'Please verify that you are human by completing the recaptcha');
+        }
         $email=$request->email;
         $userData=User::where('email',$email)->first();
         if($userData){
             return redirect()->route('login')->with('error', 'Email already exists');
         }
-        $user = User::create([
-            'FName' => $request->FName,
-            'MName' => $request->MName??'',
-            'LName' => $request->LName,
-            'email' => $request->email,
-            'MobileNo' => $request->MobileNo,
-            'Gender' => $request->gender,
-            'Country' => $request->Country,
-            'Address' => $request->Address??'',
-            'password' => $request->password,
-            'MemberType' => $request->MemberType??0,
-            'NepasID' => $request->NepasID??'',
-            'MedicalCouncilNo' => $request->MedicalCouncilNo??'', 
-        ]);
-        
-        
-        Auth::login($user);
-        $request->session()->regenerate();
-        event(new Registered($user));
-        // Mail::to($user->email)->send(new CustomVerificationMail($user));
+        // $user = User::create([
+        //     'FName' => $request->FName,
+        //     'MName' => $request->MName??'',
+        //     'LName' => $request->LName,
+        //     'email' => $request->email,
+        //     'MobileNo' => $request->MobileNo,
+        //     'Gender' => $request->gender,
+        //     'Country' => $request->Country,
+        //     'Address' => $request->Address??'',
+        //     'password' => $request->password,
+        //     'MemberType' =>$request->MemberType ? (int) $request->MemberType: 0,
+        //     'NepasID' => $request->NepasID??'',
+        //     'MedicalCouncilNo' => $request->MedicalCouncilNo??'', 
+        // ]);
+        $user=new User();
+        $user->FName=$request->FName;
+        $user->MName=$request->MName??'';
+        $user->LName=$request->LName;
+        $user->email=$request->email;
+        $user->MobileNo=$request->MobileNo;
+        $user->Gender=$request->gender;
+        $user->Country=$request->Country;
+        $user->Address=$request->Address??'';
+        $user->password=$request->password;
+        $user->MemberType=$request->MemberType ? (int) $request->MemberType: 0;
+        $user->NepasID=$request->NepasID??'';
+        $user->MedicalCouncilNo=$request->MedicalCouncilNo??'';
+        // dd($user);
+        try{
+            $user->save();
+            Auth::login($user);
+            $request->session()->regenerate();
+            // $returnData= event(new Registered($user));
+            $isSent= $user->sendEmailVerificationNotification();
+            // dd($isSent);
 
-        // $user->sendEmailVerificationNotification();
-        
-        // session(['user' => $user]);
-        // return redirect(route('profile', absolute: false));
-        return redirect(route('verification.notice'))->with('message', 'Please verify your email');
+            if($isSent){
+                return redirect(route('verification.notice'))->with('success', 'Email verification link sent');
+            }else{
+                return redirect(route('verification.notice'))->with('warning', 'Could not send email verification link,Please try again later or login');
+            }
+        }catch(\Exception $e){
+            return redirect(route('register'))->with('error', 'Could not Register,Please try again ');
+        }
     }
     public function updateUser(Request $request)
 {
@@ -82,7 +109,7 @@ class UserController extends Controller
     $user->MemberType = (int) $request->MemberType ?? 0;  // Default to 0 if no MemberType is provided
     $user->NepasID = $request->NepasID ?? '';  // Default to empty string if no NepasID is provided
     $user->MedicalCouncilNo = $request->MedicalCouncilNo ?? '';  // Default to empty string if no MedicalCouncilNo
-
+    // dd($user);
     // Save the updated user to the database
     if ($user->save()) {
         // Successfully updated, redirect with success message

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/datatables-responsive/css/responsive.bootstrap4.css')}}">
     <!-- endinject -->
+    <link rel="shortcut icon" href="{{asset('images/nepaslogoSmall.png')}}" />
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('js/select.dataTables.min.css')}}">
@@ -32,36 +33,40 @@
           background-color: #bd362f !important;
           color: #fff !important;
       }
+      .toast-warning {
+          background-color: #f89406 !important;
+          color: #fff !important;
+      }
       </style>
     @yield('css')
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+    <link rel="shortcut icon" href="{{asset('images/nepaslogoSmall.png')}}" />
   </head>
   <body class="with-welcome-text">
     <div class="container-scroller">
       <div style="display:none" id="base_url">{{url("/")}}</div>
-      <div class="card "id="msg" data-success='{{ session("success") }}' data-error='{{ session("error") }}'>
+      <div class="card "id="msg"  data-success='{{ session("success") }}' data-warning='{{ session("warning") }}' data-error='{{ session("error") }}'>
       <!-- partial:partials/_navbar.html -->
-      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row" style="background-color: #1b4aa9;">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start" style="background-color: #1b4aa9;">
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row" style="background-color: #ffffff;">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start" style="background-color: #ffffff;">
           <div class="me-3">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
-              <span class="icon-menu"></span>
+              <span class="icon-menu"></span> 
             </button>
           </div>
           <div>
-            <a class="navbar-brand brand-logo p-1" style="border-radius: 10px;"  href="index.html">
-              <img src="{{asset('images/nepasLogo.svg')}}" alt="logo" style="width: 200px; height: 50px;scale: 120%;"/>
+            <a class="navbar-brand brand-logo p-1" style="border-radius: 10px;"  href="{{url('/')}}">
+              <img src="{{asset('images/nepaslogoSmall.png')}}" alt="logo" style=" height: 80px;scale: 90%;"/>
             </a>
-            <a class="navbar-brand brand-logo-mini" href="index.html">
-              <img src="{{asset('images/nepasLogoSmall.png')}}" alt="logo" style="scale:1.5;" />
+            <a class="navbar-brand brand-logo-mini" href="{{url('/')}}">
+              <img src="{{asset('images/nepaslogoSmall.png')}}" alt="logo" style="scale:1.5;" />
             </a>
           </div>
         </div>
-        <div class="navbar-menu-wrapper d-flex align-items-top" style="background-color: #1b4aa9;">
+        <div class="navbar-menu-wrapper d-flex align-items-top" style="background-color: #ffffff;">
           <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-              <h1 class="welcome-text">Hello, <span class="text-white fw-bold">{{$userData->FName}}{{$userData->Mname??''}} {{$userData->LName}}</span></h1>
+              <h1 class="welcome-text">Hello, <span class="text-dark fw-bold">{{$userData->FName}}{{$userData->Mname??''}} {{$userData->LName}}</span></h1>
               <h3 class="welcome-sub-text">Your All Information </h3>
             </li>
           </ul>
@@ -133,11 +138,19 @@
               </div>
             </li> --}}
             <li class="nav-item">
-              <a class="nav-link" href="{{route('abstractlist')}}">
-                <i class="menu-icon mdi mdi-file-document"></i>
-                <span class="menu-title">Abstract</span>
-              </a>
-            </li>
+              @if($userData->Verified==1)
+                  <a class="nav-link" href="{{ route('abstractlist') }}">
+                      <i class="menu-icon mdi mdi-file-document"></i>
+                      <span class="menu-title">Abstract</span>
+                  </a>
+              @else
+                  <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#verificationModal">
+                      <i class="menu-icon mdi mdi-file-document"></i>
+                      <span class="menu-title">Abstract</span>
+                  </a>
+              @endif
+          </li>
+          
           </ul>
         </nav>
         <!-- partial -->
@@ -155,8 +168,8 @@
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
-              <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">LunivaTech</span>
+              <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2025 NEPCON. All rights reserved.</span>
             </div>
           </footer>
           <!-- partial -->
@@ -167,6 +180,25 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    <!-- Bootstrap Modal -->
+<div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="verificationModalLabel">Email Verification Required</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              Your email is not verified. Please verify your email to access the abstract section.
+          </div>
+          <div class="modal-footer">
+              <a href="{{route('verify-email')}}" class="btn btn-primary">Verify Now</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div> 
+</div>
+
 
     <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
     <script src="{{asset('vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>

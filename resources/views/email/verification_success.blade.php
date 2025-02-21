@@ -59,7 +59,7 @@
     <div class="verification-container">
         <div class="verification-box">
             <div class="brand-logo">
-                <img src="images/logo.svg" alt="logo">
+                <img src="{{asset('images/nepaslogoSmall.png')}}" alt="logo">
             </div>
 
             @if(session('success'))

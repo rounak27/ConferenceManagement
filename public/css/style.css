@@ -29304,7 +29304,7 @@ dl li {
   margin-left: 0 !important;
 }
 .navbar.navbar-primary .navbar-menu-wrapper {
-  background: #1F3BB3;
+  background: #E91E63;
 }
 .navbar.navbar-primary:not(.navbar-light) .navbar-menu-wrapper .navbar-toggler {
   color: #ffffff;
@@ -30146,10 +30146,10 @@ dl li {
     margin-right: 0;
     margin-left: 0;
     margin-bottom: 0;
-    color: rgba(31, 59, 179, 0.7);
+    color: #E91E63;
   }
   .sidebar-dark.sidebar-icon-only .sidebar .nav .nav-item .nav-link i.menu-icon {
-    color: rgba(31, 59, 179, 0.7);
+    color: #E91E63;
   }
   .sidebar-icon-only .sidebar .nav .nav-item .nav-link i.menu-arrow {
     display: none;
@@ -30238,7 +30238,7 @@ dl li {
     display: none;
   }
   .sidebar-icon-only .sidebar .nav .nav-item.active .nav-link i.menu-icon {
-    color: #1F3BB3;
+    color: #E91E63;
   }
   .sidebar-icon-only .sidebar .nav:not(.sub-menu) .nav-item.active {
     border-radius: 0;

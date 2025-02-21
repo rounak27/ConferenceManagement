@@ -38,11 +38,22 @@
 <body>
 
 <div class="container">
-    @if (session('message'))
+    @if (session('success'))
         <div class="alert alert-success">
-            {{ session('message') }}
+            {{ session('success') }}
         </div>
     @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
 
     <div class="card">
         <img src="{{asset('images/nepasLogo.svg')}}" alt="Verification Icon" class="mb-3">

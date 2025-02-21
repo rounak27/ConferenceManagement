@@ -104,9 +104,9 @@
                   <div class="col-sm-9">
                     <select class="form-select" id="MemberType" name="MemberType">
                       <option value="">Select Member Type</option>
-                      <option value="1" {{ isset($userData->MemberType) && $userData->MemberType == 1 ? 'selected' : '' }}>Member Type 1</option>
-                      <option value="2" {{ isset($userData->MemberType) && $userData->MemberType == 2 ? 'selected' : '' }}>Member Type 2</option>
-                      <option value="3" {{ isset($userData->MemberType) && $userData->MemberType == 3 ? 'selected' : '' }}>Member Type 3</option>
+                      @foreach($memberTypes as $memberType)
+                        <option value="{{$memberType->id}}" {{ isset($userData->MemberType) && $userData->MemberType == $memberType->id ? 'selected' : '' }}>{{$memberType->name}}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>

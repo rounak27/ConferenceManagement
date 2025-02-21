@@ -17,6 +17,7 @@
                 <table class="table table-bordered abstractListTable">
                     <thead>
                         <tr>
+                            <th>S.No</th>
                             <th>Abstract Title</th>
                             {{-- <th>Abstract</th> --}}
                             <th>Status</th>
@@ -27,15 +28,19 @@
                     <tbody>
                         @foreach ($abstracts as $abstract)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 {{-- {{dd($abstract->id)}} --}}
                                 <td>{{ $abstract->TopicTitle }}</td>
                                 {{-- <td>{{ $abstract->AbstractContent }}</td> --}}
                                 <td><span class="badge m-0 badge-{{ $abstract->IsAccepted == 1 ? 'success' : 'danger' }}">{{ $abstract->IsAccepted == 1 ? 'Approved' : 'Not Approved' }}</span></td>
                                 <td>{{ $abstract->created_at->format('d-m-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('abstractedit', ['id' => encrypt($abstract->id)]) }}" class="btn ">
-                                        <i class="fa fa-pencil-square-o"></i>
+                                    <a href="{{ route('abstractview', ['id' => encrypt($abstract->id)]) }}" class="btn ">
+                                        <i class="fa fa-eye"></i>
                                     </a>
+                                    {{-- <a href="{{ route('abstractedit', ['id' => encrypt($abstract->id)]) }}" class="btn ">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a> --}}
                                     <button style="border: none;" 
                                         class="btn delete-btn" 
                                         data-bs-toggle="modal" 

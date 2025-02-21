@@ -43,11 +43,13 @@ class CustomVerificationMail extends Mailable
     }
     public function build()
     {
-        return $this->subject('Verify Your Email - Nepas Conference')
+         $mail = $this->subject('Verify Your Email - Nepas Conference')
                     ->view('email.verify_email')
                     ->with([
                         'verificationUrl' => $this->user->verificationUrl(),
                         'user' => $this->user
                     ]);
+        // dd($mail);
+        return $mail;
     }
 }

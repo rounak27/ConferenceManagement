@@ -35,12 +35,32 @@ class AbstractContentController extends Controller
 
         $abstract->TopicTitle=$request->title;
         $abstract->AbstractContent=$request->abstract_content;
+
+        // $abstract->UserId=0;
         $abstract->UserId=(int)$request->user_id;
         // dd($abstract);
-        $abstract->save();
+        $isSaved=false;
+        try{
+            $abstract->save();
+            $isSaved=true;
+        }catch(\Exception $e){
+            return redirect()->route('abstractlist')->with('error','Abstract submission failed');
+        }
+        // dd($abstractId);
         $userData=User::findOrFail((int)$request->user_id);
-        $abstract->sendAbstractVerificationNotification($userData);
-        return redirect()->route('abstractlist')->with('success','Abstract submitted successfully');
+        if($isSaved){
+        $returnData=$abstract->sendAbstractVerificationNotification($userData);
+
+        // dd($returnData);
+        if($returnData){
+            return redirect()->route('abstractlist')->with('success','Abstract submitted successfully');
+        }else{
+            return redirect()->route('abstractlist')->with('warning','Abstract submitted successfully but email sending failed');
+            }
+        }
+        else{
+            return redirect()->route('abstractlist')->with('error','Abstract submission failed');
+        }
     }
     public function delete(Request $request)
     {
@@ -58,6 +78,13 @@ class AbstractContentController extends Controller
         // dd($abstract);
         $userData=User::getUserData();
         return view('User.abstractedit', compact('abstract','userData'));
+    }
+    public function view($id)
+    {
+        $decryptedId =(int) decrypt($id);
+        $abstract = AbstractContent::findOrFail($decryptedId);
+        $userData=User::getUserData();
+        return view('User.abstractview', compact('abstract','userData'));
     }
 
     /**

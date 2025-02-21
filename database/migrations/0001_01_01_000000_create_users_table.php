@@ -25,7 +25,7 @@ return new class extends Migration
             // PAymentStatus bool
             $table->boolean('PaymentStatus')->default(false);
             // MemberType int
-            $table->integer('MemberType')->default(0);
+            $table->integer('MemberType');
             // NepasID string
             $table->string('NepasID')->nullable();
             // MedicalCounsilNo string

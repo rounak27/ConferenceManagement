@@ -8,22 +8,32 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthenticateWithError;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::get('/index', function () {
     return view('layout');
 });
 Route::get('/', function () {
-    return view('mainlayout');
-});
-Route::get('/guidelines', function () {
+    return view('outerpage.landingpage');
+})->name('landingpage');
+Route::get('/abstract-guidelines', function () {
     return view('guidelines.abstractGuideline');
-});
-Route::get('/general-instruction', function () {
+})->name('abstract-guidelines');
+Route::get('/general-guidelines', function () {
     return view('guidelines.generalInstruction');
-});
-Route::get('/register', [UserController::class, 'register']);
+})->name('general-guidelines');
+Route::get('/call-for-abstract', function () {
+    return view('guidelines.callForAbstract');
+})->name('call-for-abstract');
+Route::get('/message-detail', function () {
+    return view('outerpage.messagePresident');
+})->name('message-detail');
+Route::get('/message-detail-os', function () {
+    return view('outerpage.messageOS');
+})->name('message-detail-os');
+Route::get('/speaker-guidelines', function () {
+    return view('guidelines.speakerGuideline');
+})->name('speaker-guidelines');
+Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'InsertUser']);
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
@@ -40,6 +50,7 @@ Route::middleware(['auth.error'])->group(function () {
     Route::get('/abstractedit/{id}', [AbstractContentController::class, 'edit'])->name('abstractedit');
     Route::post('/abstractupdate', [AbstractContentController::class, 'update'])->name('abstract.update');
     Route::post('/abstractdelete', [AbstractContentController::class, 'delete'])->name('abstract.delete');
+    Route::get('/abstractview/{id}', [AbstractContentController::class, 'view'])->name('abstractview');
 });
 // Email verification notice route
 Route::get('/email/verify', function () {
@@ -51,8 +62,13 @@ Route::get('/verify-email', function () {
     if ($user->hasVerifiedEmail()) {
         return redirect()->route('profile');
     }
-    $user->sendEmailVerificationNotification();
-    return back()->with('success', 'Verification link sent!');
+    $isSent= $user->sendEmailVerificationNotification();
+    if($isSent){
+        return back()->with('success', 'Verification link sent!');
+    }else{
+        return back()->with('warning', 'Could not send email verification link,Please try again later ');
+    }
+    
 })->middleware(['auth', 'throttle:6,1'])->name('verify-email');
 
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
@@ -77,7 +93,12 @@ Route::post('/email/resend', function (Request $request) {
     if (Auth::user()->hasVerifiedEmail()) {        
         return redirect('/profile');
     }
-    Auth::user()->sendEmailVerificationNotification();
-    return back()->with('success', 'Verification link sent!');
+    $isSent= Auth::user()->sendEmailVerificationNotification();
+    if($isSent){
+        return back()->with('success', 'Verification link sent!');
+    }else{
+        return back()->with('warning', 'Could not send email verification link,Please try again later or login');
+    }
+    
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 // Route::get('/normalview', [UserController::class, 'normalview'])->name('profile');

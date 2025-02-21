@@ -27,6 +27,7 @@
 $(document).ready(function() {
   var success=$('#msg').data('success');
     var error=$('#msg').data('error');
+    var warning=$('#msg').data('warning');
     if(success){
         console.log(success,"success");
         toastr.success(success);
@@ -34,5 +35,7 @@ $(document).ready(function() {
     if(error){
         toastr.error(error);
     }
-
+    if(warning){
+        toastr.warning(warning);
+    }
 });
