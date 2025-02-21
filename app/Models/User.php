@@ -93,4 +93,5 @@ class User extends Authenticatable implements MustVerifyEmail
             'hash' => sha1($this->getEmailForVerification()),
         ]);
     }
+    
 }

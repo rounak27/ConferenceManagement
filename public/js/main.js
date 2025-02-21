@@ -141,7 +141,30 @@ jQuery(document).ready(function( $ ) {
     var modal = $(this);
     modal.find('#ticket-type').val(ticketType);
   })
+  
 
-// custom code
+  let eventDate = new Date(2025, 4, 22, 0, 0, 0).getTime();
 
+  function updateCountdown() {
+      let now = new Date().getTime();
+      let timeLeft = eventDate - now;
+
+      if (timeLeft <= 0) {
+          $("#days, #hours, #minutes, #seconds").text("00");
+          return;
+      }
+
+      let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      $("#days").text(days);
+      $("#hours").text(hours);
+      $("#minutes").text(minutes);
+      $("#seconds").text(seconds);
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 });

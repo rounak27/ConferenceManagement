@@ -44,9 +44,8 @@
 <body>
     <div class="container">
         <img src="{{asset('images/nepaslogoSmall.png')}}" alt="Nepas Conference Logo" class="logo">
-        <h2>Welcome, {{ $user->Fname }} {{ $user->Lname }}!</h2>
+        <h2>Welcome, {{ $user->FName }} {{ $user->LName }}!</h2>
         <p>Thank you for Submitting your Abstract for <strong>Nepas Conference</strong>. Your Abstract has been successfully submitted.</p>
-        
         <div class="footer">
             <p>Regards,</p>
             <strong>Nepas Conference Team</strong>

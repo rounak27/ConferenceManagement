@@ -107,7 +107,7 @@
                 <span class="menu-title">Profile</span>
               </a>
             </li>
-            <li class="nav-item nav-category">UI Elements</li>
+            
             
             {{-- <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
@@ -215,7 +215,7 @@
     <script src="{{asset('js/template.js')}}"></script>
     <script src="{{asset('js/settings.js')}}"></script>
     <script src="{{asset('js/hoverable-collapse.js')}}"></script>
-    <script src="{{asset('js/todolist.js')}}"></script>
+    <script src="{{asset('js/todolist.js')}}"></script>\
     
     
     <!-- endinject -->

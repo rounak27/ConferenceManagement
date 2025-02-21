@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::table('tbl_users', function (Blueprint $table) {
-            $table->integer('Role')->default(4); // Add the 'status' column
+            $table->integer('RoleId')->default(4); // Add the 'status' column
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tbl_users', function (Blueprint $table) {
-            $table->dropColumn('Role'); // Drop the 'status' column
+            $table->dropColumn('RoleId'); // Drop the 'status' column
         });
     }
 };

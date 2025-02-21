@@ -55,7 +55,7 @@
           <ul class="nav-menu">
             <li class="menu-active"><a href="{{route('landingpage')}}#intro">Home</a></li>
             <li><a href="{{route('landingpage')}}#about">About</a></li>
-            <li><a href="{{route('landingpage')}}#speakers">Message</a></li>
+            <li class="hide"><a href="{{route('landingpage')}}#speakers">Message</a></li>
             <li><a href="{{route('landingpage')}}#schedule">Schedule</a></li>
 
             <!-- Venue Dropdown -->

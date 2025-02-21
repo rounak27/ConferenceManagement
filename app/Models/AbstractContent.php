@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Mail\AbstractVerificationMail;
+use App\Mail\VerifierMailer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -19,28 +21,33 @@ class AbstractContent extends Model
     }
     public function sendAbstractVerificationNotification($userData)
     {
-        // dd($this->email);
-        //  Mail::to($userData->email)->send(new AbstractVerificationMail($userData));
-        // // dd($mail);
-        // //  Mail::to($userData->email)->send(new AbstractVerificationMail($userData));
-        // MailTrack::create([
-        //     'user_id' => $userData->id,
-        //     'email' => $userData->email,
-        //     'subject' => 'Abstract Submission Successfully',
-        //     'status' => 'sent',
-        // ]);
-        // return view('auth.verify-email');
-
+        $verifiers = DB::table('tbl_verifieremail')->pluck('email')->toArray();
+        
+        // dd($userData);
         try {
+            // Send email to submitter
             Mail::to($userData->email)->send(new AbstractVerificationMail($userData));
-    
-            // If email is sent successfully, store mail tracking
+            // Send email to verifiers
+            Mail::to($verifiers)->send(new VerifierMailer($userData));    
+
+            // Store mail tracking for submitter
             MailTrack::create([
                 'user_id' => $userData->id,
                 'email' => $userData->email,
                 'subject' => 'Abstract Submission Successfully',
                 'status' => 'sent',
             ]);
+
+            // Store mail tracking for verifiers
+            foreach ($verifiers as $verifierEmail) {
+                MailTrack::create([
+                    'user_id' => $userData->id, // Can be null if verifier is not linked to a user
+                    'email' => $verifierEmail,
+                    'subject' => 'New Abstract Submission for Verification',
+                    'status' => 'sent',
+                ]);
+            }
+            
             return true;
         } catch (TransportExceptionInterface $e) {
             // Log the error
@@ -48,15 +55,27 @@ class AbstractContent extends Model
                 'user_id' => $userData->id,
                 'email' => $userData->email
             ]);
-    
-            // Store failed email attempt
+
+            // Store failed email attempt for submitter
             MailTrack::create([
                 'user_id' => $userData->id,
                 'email' => $userData->email,
                 'subject' => 'Abstract Submission Successfully But Email Sending Failed',
                 'status' => 'failed',
             ]);
+
+            // Store failed email attempts for verifiers
+            foreach ($verifiers as $verifierEmail) {
+                MailTrack::create([
+                    'user_id' => $userData->id, // Can be null for verifiers
+                    'email' => $verifierEmail,
+                    'subject' => 'New Abstract Submission for Verification',
+                    'status' => 'failed',
+                ]);
+            }
+
             return false;
         }
     }
+
 }

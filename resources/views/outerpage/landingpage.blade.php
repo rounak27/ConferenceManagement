@@ -38,12 +38,32 @@
               </p>
             </div>
             <div class="col-lg-3">
-              <h3>Where</h3>
+              <h3>Venue</h3>
               <p>The Plaza Convention Centre, Lalitpur</p>
             </div>
             <div class="col-lg-3">
-              <h3>When</h3>
+              <h3>Mark Your Calendar</h3>
               <p>Thursday to Saturday<br />22-24 May,2025</p>
+              <div class="countdown-container">
+                <div class="countdown-title">Time Left</div>
+                <div class="countdown">
+                    <div class="countdown-box">
+                        <span id="days" class="countdown-number">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="hours" class="countdown-number">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="minutes" class="countdown-number">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="seconds" class="countdown-number">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
@@ -115,7 +135,7 @@
       </section> -->
       <section
         id="speakers"
-        class="wow fadeInUp"
+        class="wow fadeInUp hide"
         style="visibility: visible; animation-name: fadeIn"
       >
         <div class="container">
@@ -321,7 +341,7 @@
       <!--==========================
       Schedule Section
     ============================-->
-      <section id="schedule" class="section-with-bg">
+      <section id="schedule" class="section-with-bg ">
         <div class="container wow fadeInUp">
           <div class="section-header">
             <h2>Event Schedule</h2>
@@ -329,7 +349,7 @@
           </div>
 
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item m-2">
               <a
                 class="nav-link active"
                 href="#day-1"
@@ -338,12 +358,12 @@
                 >May 22, 2025</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item m-2">
               <a class="nav-link" href="#day-2" role="tab" data-toggle="tab"
                 >May 23, 2025</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item m-2">
               <a class="nav-link" href="#day-3" role="tab" data-toggle="tab"
                 >May 24, 2025</a
               >
@@ -361,7 +381,7 @@
             >
               <div class="row schedule-item">
                 <div class="col-md-2"><time></time></div>
-                <div class="col-md-10">
+                <div class="col-md-10" style="margin-left: 43%;">
                   <!-- <h4>Registration</h4> -->
                   <p>Coming Soon.</p>
                 </div>
@@ -384,7 +404,7 @@
             <div role="tabpanel" class="col-lg-9 tab-pane fade" id="day-2">
               <div class="row schedule-item">
                 <div class="col-md-2"><time></time></div>
-                <div class="col-md-10">
+                <div class="col-md-10" style="margin-left: 43%;">
                   <!-- <h4>
                     Libero corrupti explicabo itaque.
                     <span>Brenden Legros</span>
@@ -415,7 +435,7 @@
             <div role="tabpanel" class="col-lg-9 tab-pane fade" id="day-3">
               <div class="row schedule-item">
                 <div class="col-md-2"><time></time></div>
-                <div class="col-md-10">
+                <div class="col-md-10" style="margin-left: 43%;">
                   <!-- <h4>
                     Et voluptatem iusto dicta nobis. <span>Hubert Hirthe</span>
                   </h4> -->
@@ -447,7 +467,7 @@
       <!--==========================
       Venue Section
     ============================-->
-      <section id="venue" class="wow fadeInUp">
+      <section id="venue" class="wow fadeInUp ">
         <div class="container-fluid">
           <div class="section-header">
             <h2>Event Venue</h2>
@@ -1134,6 +1154,11 @@
         </div>
         <!-- /.modal -->
       </section>
+
+        <!--==========================
+      Coming Soon Section
+    ============================-->
+    
 
       <!--==========================
       Contact Section

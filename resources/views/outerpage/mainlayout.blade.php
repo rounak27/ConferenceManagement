@@ -54,11 +54,11 @@
           <ul class="nav-menu">
             <li class="menu-active"><a href="#intro">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#speakers">Message</a></li>
+            <li class="hide"><a href="#speakers" class="">Message</a></li>
             <li><a href="#schedule">Schedule</a></li>
 
             <!-- Venue Dropdown -->
-            <li class="menu-has-children">
+            <li class="menu-has-children ">
               <a href="#venue">Guidelines</a>
               <ul>
                 <li>
