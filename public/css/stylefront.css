@@ -941,6 +941,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 .hide {
   display: none !important;
 }
+
+
+
 /*--------------------------------------------------------------
 # Schedule Section
 --------------------------------------------------------------*/
@@ -1058,7 +1061,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #venue .venue-info {
-  background: url("../img/venue-info-bg.jpg") top center no-repeat;
+  background: url("../images/hotels/plaza.jpg") top center no-repeat;
   background-size: cover;
   position: relative;
   padding-top: 60px;
@@ -1067,7 +1070,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #venue .venue-info:before {
   content: "";
-  background: rgba(13, 20, 41, 0.8);
+  background: rgba(13, 20, 41, 0.52);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -1127,10 +1130,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 #hotels .hotel-img {
   overflow: hidden;
   margin-bottom: 15px;
+  
 }
 
 #hotels .hotel-img img {
   transition: 0.3s ease-in-out;
+  height: 261px !important;
+  width:349px !important;
 }
 
 #hotels h3 {

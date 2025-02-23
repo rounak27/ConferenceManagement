@@ -135,7 +135,7 @@
       </section> -->
       <section
         id="speakers"
-        class="wow fadeInUp hide"
+        class="wow fadeInUp "
         style="visibility: visible; animation-name: fadeIn"
       >
         <div class="container">
@@ -162,7 +162,7 @@
                   scheduled to be held from 22nd – 24th May 2025, at The Plaza
                   Convention Centre, Lalitpur...
                   <a href="{{route('message-detail')}}">
-                    <button class="btn read-more-btn">Read More</button></a
+                    <button class="btn read-more-btn m-1">Read More</button></a
                   >
                 </p>
               </div>
@@ -186,7 +186,7 @@
                   scheduled to be held from 22nd – 24th May 2025, at The Plaza
                   Convention Centre, Lalitpur....
                   <a href="{{route('message-detail-os')}}">
-                    <button class="btn read-more-btn">Read More</button></a
+                    <button class="btn read-more-btn m-1">Read More</button></a
                   >
                 </p>
 
@@ -487,7 +487,8 @@
             <div class="col-lg-6 venue-info">
               <div class="row justify-content-center">
                 <div class="col-11 col-lg-8">
-                  <h3>The Plaza Convention Centre, Pulchowk, Lalitpur</h3>
+                  <h3><a href="https://theplazanepal.com/">The Plaza Convention Centre, Pulchowk, Lalitpur </a></h3>
+                  
                   <p>
                     “Climate Change and its Impact on Children: Safeguarding the
                     Future through Specialized Care”
@@ -602,7 +603,7 @@
       <!--==========================
       Hotels Section
     ============================-->
-      <section id="hotels" class="section-with-bg wow fadeInUp hide">
+      <section id="hotels" class="section-with-bg wow fadeInUp ">
         <div class="container">
           <div class="section-header">
             <h2>Hotels</h2>
@@ -613,9 +614,9 @@
             <div class="col-lg-4 col-md-6">
               <div class="hotel">
                 <div class="hotel-img">
-                  <img src="img/hotels/1.jpg" alt="Hotel 1" class="img-fluid" />
+                  <img src="{{asset('images/hotels/himalayahotel.png')}}" alt="Himalaya Hotel" class="img-fluid" />
                 </div>
-                <h3><a href="#">Hotel 1</a></h3>
+                <h3><a href="https://hotelhimalaya.com/">Hotel Himalaya</a></h3>
                 <div class="stars">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -623,40 +624,95 @@
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                 </div>
-                <p>0.4 Mile from the Venue</p>
+                <p>Kupondole,Lalitpur</p>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6">
               <div class="hotel">
                 <div class="hotel-img">
-                  <img src="img/hotels/2.jpg" alt="Hotel 2" class="img-fluid" />
+                  <img src="{{asset('images/hotels/squarehotel.jpg')}}" alt="Square Hotel" class="img-fluid" />
                 </div>
-                <h3><a href="#">Hotel 2</a></h3>
+                <h3><a href="https://squarehotelktm.com/">Square Hotel </a></h3>
                 <div class="stars">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
-                  <i class="fa fa-star-half-full"></i>
+                  <i class="fa fa-star"></i>
                 </div>
-                <p>0.5 Mile from the Venue</p>
+                <p>Sanepa,Lalitpur</p>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6">
               <div class="hotel">
                 <div class="hotel-img">
-                  <img src="img/hotels/3.jpg" alt="Hotel 3" class="img-fluid" />
+                  <img src="{{asset('images/hotels/vivantahotel.jpg')}}" alt="Vivanta Hotel" class="img-fluid" />
                 </div>
-                <h3><a href="#">Hotel 3</a></h3>
+                <h3><a href="https://www.vivantahotels.com/en-in/destination/hotels-in-kathmandu/">Vivanta Hotel</a></h3>
                 <div class="stars">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
                 </div>
-                <p>0.6 Mile from the Venue</p>
+                <p>Jhamsikhel,Lalitpur</p>
+              </div>
+            </div>
+          </div>
+          {{-- Row 2 For Hotel  --}}
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="hotel">
+                <div class="hotel-img">
+                  <img src="{{asset('images/hotels/ShankarHotel.jpg')}}" alt="Shankar Hotel" class="img-fluid" />
+                </div>
+                <h3><a href="https://www.shankerhotel.com.np/">Shankar Hotel </a></h3>
+                <div class="stars">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <p>Lazimpat,Kathmandu</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="hotel">
+                <div class="hotel-img">
+                  <img src="{{asset('images/hotels/landmarkhotel.jpg')}}" alt="Landmark Hotel" class="img-fluid" />
+                </div>
+                <h3><a href="https://www.landmarknepal.com/hotels/Landmark-Kathmandu">Landmark Nepal </a></h3>
+                <div class="stars">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  {{-- <i class="fa fa-star-half-full"></i> --}}
+                </div>
+                <p>Narayanhiti,Kathmandu</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="hotel">
+                <div class="hotel-img">
+                  <img src="{{asset('images/hotels/buddhahotel.jpg')}}" alt="Buddha Hotel" class="img-fluid" />
+                </div>
+                <h3><a href="https://www.buddhaholidays.in/l">Buddha Hotel</a></h3>
+                <div class="stars">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <p>Thamel,Kathmandu</p>
               </div>
             </div>
           </div>

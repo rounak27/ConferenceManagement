@@ -22,8 +22,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         Schema::table('tbl_users', function (Blueprint $table) {
             $table->dropColumn('RoleId'); // Drop the 'status' column
         });
     }
+    
+
 };
