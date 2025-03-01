@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-25TGY3LPQB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-25TGY3LPQB');
+  </script>
     <meta charset="utf-8" />
     <title>Nepcon 2025</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -39,6 +47,9 @@
   </head>
 
   <body>
+    <div class="visitor-count" style="display: none;">
+  <h3>Visitor Count: <span id="visitor-count">Loading...</span></h3>
+</div>
     <!--==========================
     Header
   ============================-->
@@ -53,9 +64,10 @@
         <nav id="nav-menu-container">
           <ul class="nav-menu">
             <li class="menu-active"><a href="#intro">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li class=""><a href="#speakers" class="">Message</a></li>
-            <li><a href="#schedule">Schedule</a></li>
+            <!-- <li><a href="#about">About</a></li> -->
+
+            <!-- <li class=""><a href="#speakers" class="">Message</a></li>
+            <li><a href="#schedule">Schedule</a></li> -->
 
             <!-- Venue Dropdown -->
             <li class="menu-has-children ">
@@ -80,16 +92,19 @@
 
             <!-- Hotels Dropdown -->
             <li class="menu-has-children">
-              <a href="#hotels">Hotels</a>
+              <a href="#hotels"> Accomodation</a>
               {{-- <ul>
                 <li><a href="#hotel-list">Hotel List</a></li>
                 <li><a href="#hotel-booking">Hotel Booking</a></li>
               </ul> --}}
-            </li> 
+            </li>
+
+            <li ><a href="{{route('registrationFees')}}">Fees</a></li> 
 
             <!-- <li><a href="#gallery">Gallery</a></li>-->
             <li><a href="{{route('call-for-abstract')}}">Call For Abstract</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{{route('organizingcomitee')}}">Organizing Comittee</a></li>
+            <!-- <li><a href="#contact">Contact</a></li> -->
             <li class="buy-tickets">
               @if(Auth::check())
                 <a href="{{route('profile')}}">Profile</a>
@@ -197,7 +212,7 @@
 
       <div class="container">
         <div class="copyright">
-          &copy; Copyright <strong>NepaCon 2025</strong>. All Rights Reserved
+          &copy; Copyright <strong>NepCon 2025</strong>. All Rights Reserved
         </div>
         <div class="credits">
           <!--

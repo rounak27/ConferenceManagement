@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Log;
 use Mail;
 use URL;
 
@@ -82,6 +83,8 @@ class User extends Authenticatable implements MustVerifyEmail
                 'subject' => 'Verification Email',
                 'status' => 'failed',
             ]);
+            Log::error('Mail Error: ' . $e->getMessage());
+
             return false;
         }
         // return view('auth.verify-email');

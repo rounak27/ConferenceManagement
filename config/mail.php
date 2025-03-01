@@ -15,6 +15,7 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'log'),
+    'log_channel' => env('MAIL_LOG_CHANNEL', 'stack'),
 
     /*
     |--------------------------------------------------------------------------
@@ -92,6 +93,13 @@ return [
             'mailers' => [
                 'ses',
                 'postmark',
+            ],
+        ],
+        'stream' => [
+            'ssl' => [
+                'allow_self_signed' => true,
+                'verify_peer' => false,
+                'verify_peer_name' => false,
             ],
         ],
 

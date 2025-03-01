@@ -1,5 +1,5 @@
 jQuery(document).ready(function( $ ) {
-
+ 
   // Back to top button
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
@@ -167,4 +167,33 @@ jQuery(document).ready(function( $ ) {
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
+
+
+
+
+
+//analytics
+async function getVisitorCount() {
+  const response = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/479987295:runReport`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer YOUR_ACCESS_TOKEN`
+    },
+    body: JSON.stringify({
+      "dateRanges": [{ "startDate": "7daysAgo", "endDate": "today" }],
+      "metrics": [{ "name": "activeUsers" }]
+    })
+  });
+
+  const data = await response.json();
+  document.getElementById('visitor-count').innerText = data.rows?.[0]?.metricValues?.[0]?.value || 0;
+}
+
+var number= getVisitorCount();
+console.log(number,"Visitors");
+
+
+
 });
+

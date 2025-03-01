@@ -534,11 +534,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #intro {
   width: 100%;
-  height: 100vh;
-  background: url(../images/theplaza.png) top center;
+  height: 90vh;
+  background: url(../images/nepconposter.jpg) top center;
   background-size: cover;
   overflow: hidden;
   position: relative;
+
 }
 
 #intro:before {
@@ -826,7 +827,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #speakers .speaker .details {
-  background: rgba(6, 12, 34, 0.76);
+  background: rgba(6, 12, 34, 1);
   position: absolute;
   left: 0;
   bottom: -30px;
@@ -873,10 +874,38 @@ body.mobile-nav-active #mobile-nav-toggle {
   /* margin-left: 17%; */
   border-radius: 59%;
   height: 349px;
+  width:349px;
+  /* scale:75%; */
 }
+#speakers .img-fluid-2 {
+  margin-left: -18% !important;
+  /* margin-left: 17%; */
+  /* background-color: rgb(218, 211, 211); */
+  /* border-radius: 59%; */
+  height: 310px;
+  width:349px;
+  scale:75%;
+}
+
+@media (max-width: 700px) {
+  #speakers .img-fluid-1 {
+    margin-left: 3% !important;
+    /* margin-right: 5% !important; */
+    border-radius: 59%;
+    height: 349px;
+    width:349px;
+  }
+}
+
+
 #speakers h3 {
   text-align: center;
   margin-top: 4%;
+}
+
+#speakers h4 {
+  text-align: center;
+  /* margin-top: 4%; */
 }
 
 #speakers-details {
@@ -889,6 +918,8 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-weight: 700;
   margin-bottom: 10px;
 }
+
+
 
 #speakers-details .details .social {
   margin-bottom: 15px;
@@ -923,6 +954,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 .img-fluid-1 {
   margin-left: 23%;
   border-radius: 59%;
+  scale: 0.75;
+}
+@media (max-width: 700px) {
+   .img-fluid-1 {
+    margin-left: 3% !important;
+    /* margin-right: 5% !important; */
+    border-radius: 59%;
+    height: 349px;
+    width:349px;
+  }
 }
 
 .read-more-btn {
@@ -942,6 +983,17 @@ body.mobile-nav-active #mobile-nav-toggle {
   display: none !important;
 }
 
+/* Registration Fees Section  */
+#registrationFees {
+  padding: 60px 0;
+}
+
+#registrationFees .details h2 {
+  color: #112363;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
 
 
 /*--------------------------------------------------------------

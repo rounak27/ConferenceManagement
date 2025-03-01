@@ -33,6 +33,12 @@ Route::get('/message-detail-os', function () {
 Route::get('/speaker-guidelines', function () {
     return view('guidelines.speakerGuideline');
 })->name('speaker-guidelines');
+Route::get('/registrationFees', function () {
+    return view('outerpage.registrationFees');
+})->name('registrationFees');
+Route::get('/organizingcomitee', function () {
+    return view('outerpage.organizingComitee');
+})->name('organizingcomitee');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'InsertUser']);
 

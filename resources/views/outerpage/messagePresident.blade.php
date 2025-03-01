@@ -18,6 +18,7 @@
               src="{{asset('images/profilepic/Dr-Arun-Neupane-modified.png')}}"
               alt="Speaker 1"
               class="img-fluid img-fluid-1"
+              style="scale: 0.75;"
             />
             <div class="details message-details">
               <h2>Maj. Gen. Dr. Arun Kumar Neopane (Retd.)</h2>

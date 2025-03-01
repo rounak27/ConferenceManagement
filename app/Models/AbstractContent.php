@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Mail\AbstractVerificationMail;
 use App\Mail\VerifierMailer;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -49,12 +50,14 @@ class AbstractContent extends Model
             }
             
             return true;
-        } catch (TransportExceptionInterface $e) {
+        } catch (Exception $e) {
             // Log the error
             Log::error('Email sending failed: ' . $e->getMessage(), [
                 'user_id' => $userData->id,
                 'email' => $userData->email
             ]);
+            Log::error('Mail Error: ' . $e->getMessage());
+
 
             // Store failed email attempt for submitter
             MailTrack::create([
