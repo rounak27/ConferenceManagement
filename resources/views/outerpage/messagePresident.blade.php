@@ -1,6 +1,13 @@
 @extends('outerpage.mainlayoutinnerpage')
 
 @section('content')
+<style>
+ .president-image{
+    margin-left: 0%;
+    border-radius: 59%;
+    /* scale: 0.75; */
+ }
+</style>
 <main id="main" class="main-page">
     <!--==========================
     Speaker Details Section
@@ -8,16 +15,16 @@
     <section id="speakers-details" class="wow fadeIn">
       <div class="container">
         <div class="section-header">
-          <h2>Message From President</h2>
+          <h2>Message From The President</h2>
           <p></p>
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <img
-              src="{{asset('images/profilepic/Dr-Arun-Neupane-modified.png')}}"
+              src="{{asset('NEPAS_/Arun.png')}}"
               alt="Speaker 1"
-              class="img-fluid img-fluid-1"
+              class="img-fluid president-image"
               style="scale: 0.75;"
             />
             <div class="details message-details">
@@ -27,7 +34,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="details">
+            <div class="details" style="text-align:justify !important;">
               <div class="social">
                 <!-- <a href=""><i class="fa fa-twitter"></i></a>
                 <a href=""><i class="fa fa-facebook"></i></a>
@@ -58,9 +65,11 @@
               brighter future for child health. Thank you for being a part of
               this extraordinary event. We look forward to your active
               participation and wish you a memorable and productive time in
-              Nepal. <br /><br />Warm regards,<br />
+              Nepal. <br />
+              <div><img src="{{asset('NEPAS_/presidentsign.jpg')}}" alt="" style="width:90px"></div>
+              <br />Warm regards,<br />
               <strong
-                >Maj. Gen. Dr. Arun Kumar Neopane (Retd.) President
+                >Maj. Gen. Dr. Arun Kumar Neopane (Retd.) <br> President
                 (2023-25),</strong
               ><br />
               Nepal Paediatric Society Kathmandu Nepal

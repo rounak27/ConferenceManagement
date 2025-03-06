@@ -60,7 +60,7 @@
 
         <p>Please review and verify the abstract as soon as possible.</p>
 
-        {{-- <a href="{{ route('abstractlist') }}" class="button">Review Abstract</a> --}}
+        <a href="{{ route('login') }}" class="button">Review Abstract</a> 
 
         <p class="footer">Thank you,<br>Abstract Submission Team</p>
     </div>

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbstractContent;
+use App\Models\Admin;
 use Crypt;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Log;
 class AbstractContentController extends Controller
 {
     /**
@@ -129,5 +132,51 @@ class AbstractContentController extends Controller
     public function destroy(AbstractContent $abstractContent)
     {
         //
+    }
+    //all abstracts
+    public function allAbstracts()
+    {
+      
+        $abstracts = AbstractContent::getAbstracts(0);
+        $admindata=Admin::getAdminData();
+    
+        // dd($abstracts);
+        // $id=encrypt($abstracts[0]->id);
+        // dd(decrypt($id));
+        // dd($abstracts,$userData);
+        return view('Admin.abstractList', ['abstracts' => $abstracts,'admindata'=>$admindata]);
+    }
+    public function adminview($id)
+    {
+        $admindata=Admin::getAdminData();
+        $decryptedId =(int) decrypt($id);
+        $abstract = AbstractContent::getAbstracts($decryptedId);
+        if (!empty($abstract)) {
+
+            $abstract = $abstract[0];
+        }
+
+        // dd($abstract->TopicTitle);
+        // $userData=User::getUserData();
+        return view('admin.abstractview', compact('abstract','admindata'));
+    }
+    public function updateAbstractStatus(Request $request)
+    {
+        // dd($request->all());
+        $abstract=AbstractContent::findOrFail((int)$request->abstract_id);
+        // dd($abstract);
+        // dd($request->all());
+        try{
+        $abstract=AbstractContent::findOrFail((int)$request->abstractId);
+        
+        $abstract->IsAccepted=$request->status;
+        $abstract->save();
+
+        return redirect()->route('admin.abstractlist')->with('success','Abstract status updated successfully');
+        }
+        catch(\Exception $e){
+            Log::error('Abstract status update failed: ' . $e->getMessage());
+            return redirect()->route('admin.abstractlist')->with('error','Abstract status update failed');
+        }
     }
 }

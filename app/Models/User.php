@@ -57,11 +57,43 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
     protected function getUserData()
+{
+    $user = Auth::user();
+
+    $userData = User::leftJoin('tbl_member_types', 'tbl_member_types.id', '=', 'tbl_users.MemberType')
+        ->select('tbl_users.*', 'tbl_member_types.name as MemberTypeName')
+        ->where('tbl_users.id', $user->id) // Make sure we filter by the current user
+        ->first(); // Use first() to fetch a single result for the logged-in user
+    
+    return $userData;
+}
+    protected function getUserDataFromUserId($userId=0)
     {
-        $user=Auth::user();
-        $userData=User::find($user->id);
-        return $userData;
+        if($userId==0){
+            $user = User::all()
+            ->where('RoleId', '!=', 1);
+            
+        }else{
+            $user = User::where('id',$userId)
+            ->where('RoleId', '!=', 1)
+            ->first();
+        }
+        return $user;
     }
+    protected function getUserDataWithDocumentFromUserId($userId = 0)
+{
+    $query = User::leftJoin('tbl_documents', 'tbl_documents.user_id', '=', 'tbl_users.id')
+        ->leftJoin('tbl_member_types', 'tbl_member_types.id', '=', 'tbl_users.MemberType')
+        ->where('tbl_users.RoleId', '!=', 1)
+        ->select('tbl_users.*', 'tbl_documents.id as DocumentId','tbl_documents.payment_document','tbl_documents.medical_letter_document', 'tbl_member_types.name as MemberTypeName'); // Select required fields
+
+    if ($userId != 0) {
+        return $query->where('tbl_users.id', $userId)->first(); // Fetch a single record
+    }
+
+    return $query->get(); // Fetch all records
+}
+
     public function sendEmailVerificationNotification()
     {
         try{
@@ -95,6 +127,20 @@ class User extends Authenticatable implements MustVerifyEmail
             'id' => $this->getKey(),
             'hash' => sha1($this->getEmailForVerification()),
         ]);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'RoleId');
+    }
+
+    public function isAdmin()
+    {
+        return $this->RoleId == 1; // Assuming 1 = Admin
+    }
+
+    public function isAccountant()
+    {
+        return $this->RoleId == 3; // Assuming 3 = Accountant
     }
     
 }

@@ -80,5 +80,29 @@ class AbstractContent extends Model
             return false;
         }
     }
-
+    public static function getAbstracts($abstractId=null)
+    {
+        if($abstractId){
+            $abstracts = AbstractContent::leftJoin('tbl_users', 'tbl_users.id', '=', 'tbl_abstract_contents.UserId')
+            ->select(
+                'tbl_abstract_contents.*', 
+                DB::raw("CONCAT(tbl_users.FName, ' ', tbl_users.MName, ' ', tbl_users.LName) AS UserName"),
+                'tbl_users.email AS UserEmail'
+            )
+            ->where('tbl_abstract_contents.IsActive', 1)
+            ->where('tbl_abstract_contents.id', $abstractId)
+            ->get();
+        }
+        else{
+            $abstracts = AbstractContent::leftJoin('tbl_users', 'tbl_users.id', '=', 'tbl_abstract_contents.UserId')
+            ->select(
+                'tbl_abstract_contents.*', 
+                DB::raw("CONCAT(tbl_users.FName, ' ', tbl_users.MName, ' ', tbl_users.LName) AS UserName"),
+                'tbl_users.email AS UserEmail'
+            )
+            ->where('tbl_abstract_contents.IsActive', 1) // Ensure boolean is correctly checked
+            ->get();
+        }
+        return $abstracts;
+    }
 }

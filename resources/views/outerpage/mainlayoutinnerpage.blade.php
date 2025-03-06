@@ -39,12 +39,7 @@
     <!-- Main Stylesheet File -->
     <link href="{{asset('css/stylefront.css')}}" rel="stylesheet" />
 
-    <!-- =======================================================
-    Theme Name: TheEvent
-    Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+  
   </head>
 
   <body>
@@ -94,7 +89,7 @@
               </ul> --}}
               </li> 
             <!-- Hotels Dropdown -->
-            <li ><a href="{{route('registrationFees')}}">Fees</a></li> 
+            <li ><a href="{{route('registrationFees')}}">Registration</a></li> 
 
             <!-- <li><a href="#gallery">Gallery</a></li>-->
             <li><a href="{{route('call-for-abstract')}}">Call For Abstract</a></li>
@@ -104,7 +99,7 @@
               @if(Auth::check())
                 <a href="{{route('profile')}}">Profile</a>
               @else
-                <a href="{{route('login')}}">Login/Register</a>
+                <a href="{{route('login')}}">Submit Abstract</a>
               @endif
             </li>
             <!-- <li class="buy-tickets"><a href="#buy-tickets">Buy Tickets</a></li> -->
@@ -125,7 +120,7 @@
     <!--==========================
     Footer
   ============================-->
-    <footer id="footer">
+  <footer id="footer">
       <div class="footer-top">
         <div class="container">
           <div class="row">
@@ -138,9 +133,9 @@
               </p>
             </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
+            <div class="col-lg-3 col-md-6 footer-links ">
+              <h4 class="hide">Useful Links</h4>
+              <ul class="hide">
                 <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
                 <li>
                   <i class="fa fa-angle-right"></i> <a href="#">About us</a>
@@ -159,7 +154,7 @@
               </ul>
             </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
+            <div class="col-lg-3 col-md-6 footer-links ">
               <h4>Useful Links</h4>
               <ul>
                 <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
@@ -210,12 +205,7 @@
           &copy; Copyright <strong>NepCon 2025</strong>. All Rights Reserved
         </div>
         <div class="credits">
-          <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
-        -->
+          
           Designed by <a href="https://lunivatech.com">Lunivatech</a>
         </div>
       </div>

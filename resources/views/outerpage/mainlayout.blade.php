@@ -89,7 +89,6 @@
                 <!-- <li><a href="#venue-map">Registration Guidelines</a></li> -->
               </ul>
             </li>
-
             <!-- Hotels Dropdown -->
             <li class="menu-has-children">
               <a href="#hotels"> Accomodation</a>
@@ -98,8 +97,7 @@
                 <li><a href="#hotel-booking">Hotel Booking</a></li>
               </ul> --}}
             </li>
-
-            <li ><a href="{{route('registrationFees')}}">Fees</a></li> 
+            <li ><a href="{{route('registrationFees')}}">Registration</a></li> 
 
             <!-- <li><a href="#gallery">Gallery</a></li>-->
             <li><a href="{{route('call-for-abstract')}}">Call For Abstract</a></li>
@@ -109,7 +107,7 @@
               @if(Auth::check())
                 <a href="{{route('profile')}}">Profile</a>
               @else
-                <a href="{{route('login')}}">Login/Register</a>
+                <a href="{{route('login')}}">Submit Abstract</a>
               @endif
             </li>
             <!-- <li class="buy-tickets"><a href="#buy-tickets">Buy Tickets</a></li> -->
@@ -143,9 +141,9 @@
               </p>
             </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
+            <div class="col-lg-3 col-md-6 footer-links ">
+              <h4 class="hide">Useful Links</h4>
+              <ul class="hide">
                 <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
                 <li>
                   <i class="fa fa-angle-right"></i> <a href="#">About us</a>
@@ -164,7 +162,7 @@
               </ul>
             </div>
 
-            <div class="col-lg-3 col-md-6 footer-links">
+            <div class="col-lg-3 col-md-6 footer-links ">
               <h4>Useful Links</h4>
               <ul>
                 <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>

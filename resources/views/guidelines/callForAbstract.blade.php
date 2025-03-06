@@ -38,7 +38,7 @@
 
         <div class="steps">
           <h2>How to Submit Abstracts</h2>
-          <ol>
+          <ol class="hide">
             <li>
               <b>Step 1:</b> Submit Abstracts by
               <b>30 April 2025, 11:59 PM</b>
@@ -49,6 +49,12 @@
             <li>
               <b>Step 3:</b> Receive Acceptance Notice on <b>5 May 2025</b>
             </li>
+          </ol>
+          <!-- How to Submit Abstracts -->
+          <ol>
+          <li><b>Step 1:</b> Register yourself by clicking in the Submit Abstract</li>
+          <li><b>Step 2:</b> Submit Abstract from your profile by filling the required field.</li>
+          <li><b>Step 3:</b> Receive Acceptance Notice and wait for the final acceptance notice.</li>
           </ol>
         </div>
       </div>

@@ -74,9 +74,9 @@
             <tr>
                 <td>4</td>
                 <td>NON NEPAS MEMBERS (OTHERS)</td>
-                <td>12,000/-</td>
                 <td>14,000/-</td>
                 <td>16,000/-</td>
+                <td>18,000/-</td>
             </tr>
             <tr>
                 <td>5</td>
@@ -101,7 +101,7 @@
             </tr>
             <tr>
                 <td>8</td>
-                <td>CORPORATE REGISTRATION</td>
+                <td>CORPORATE REGISTRATION <sup>***</sup></td>
                 <td>15,000/-</td>
                 <td>18,000/-</td>
                 <td>22,000/-</td>
@@ -111,6 +111,9 @@
                 <td>ACCOMPANYING MEMBERS</td>
                 <td colspan="3">Free entry with Lunch coupon @ 3000/-</td>
             </tr>
+            <!-- <tr>
+                <td></td>
+            </tr> -->
         </table>
         </div>
         <div class="section-header hide " style="margin-bottom:5px;margin-top:5px;">
@@ -155,9 +158,17 @@
             </tr>
         </table>
         </div>
-        
+        <p class="note "><strong>NOTE <sup>***</sup>:</strong> Corporate Registration (Applies only if Registration is done by medical companies/organization/other).</p>
         <p class="note hide"><strong>NOTE:</strong> WORKSHOP REGISTRATION FEES MAY CHANGE DEPENDING UPON THE NATURE OF WORKSHOP.</p>
         <p class="note hide "><strong>CAT:</strong> CATEGORY NUMBER</p>
+        <div class="row">
+        <p class="note">
+        <a href="{{ route('register', ['for' => 'national']) }}" target="_blank" class="btn btn-primary m-1">
+        Registration For National Delegates
+        </a>
+        </p>
+        <p class="note "><a href="{{route('register')}}" target="_blank" class="btn btn-primary m-1">Registration For International Delegates</a></p>
+        </div>
     </div>
     </section>
 </main>

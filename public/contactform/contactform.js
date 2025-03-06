@@ -105,7 +105,6 @@ jQuery(document).ready(function($) {
             $("#errormessage").addClass("show");
             $('#errormessage').html(msg);
           }
-  
         }
       });
       return false;

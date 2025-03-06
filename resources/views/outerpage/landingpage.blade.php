@@ -138,6 +138,8 @@
       </div>
     </section>
 
+   
+
     <!--==========================
       Message From The CEO
     ============================-->
@@ -211,7 +213,7 @@
 
       <div class="row">
       <div class="col-md-6">
-        <img src="{{asset('images/profilepic/Dr-Arun-Neupane-modified.png')}}" alt="Speaker 1"
+        <img src="{{asset('NEPAS_/Arun.png')}}" alt="Speaker 1"
         class="img-fluid img-fluid-1" style="scale:0.75;" />
         <div class="details">
         <h3>Maj. Gen. Dr. Arun Kumar Neopane (Retd.)</h3>
@@ -628,6 +630,53 @@
         <p>Travel</p>
         </div>
       </div> -->
+      </div>
+    </div>
+    </section>
+
+     <!--==========================
+      Partners Section
+    ============================-->
+    <section id="partners" class="section-with-bg wow fadeInUp ">
+    <div class="container">
+      <div class="section-header">
+      <h2> Partners</h2>
+      <p>Here are Our Travel Partners</p>
+      </div>
+
+      <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="partner">
+        <div class="partner-img">
+          <img src="{{asset('images/hotels/ntb.jpg')}}" alt="Himalaya Hotel" class="img-fluid" />
+        </div>
+        <h3><a href="https://ntb.gov.np/" target="_blank">Nepal Tourism Board</a></h3>
+        <div class="stars">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+        <p>Tourism Board Of Nepal</p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="partner">
+        <div class="partner-img">
+          <img src="{{asset('images/hotels/buddhahotel.jpg')}}" alt="Buddha Hotel" class="img-fluid" />
+        </div>
+        <h3><a href="https://www.buddhaholidays.in/l" target="_blank">Buddha Holidays</a></h3>
+        <div class="stars">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+        <p>Travel</p>
+        </div>
+      </div>
       </div>
     </div>
     </section>
@@ -1073,7 +1122,7 @@
       </div>
       </div>
 
-      <div class="form hide">
+      <div class="form ">
       <div id="sendmessage">Your message has been sent. Thank you!</div>
       <div id="errormessage"></div>
       <form action="" method="post" role="form" class="contactForm">
@@ -1110,12 +1159,12 @@
   </main>
 @endsection
 @section('script')
-  <script>
+  <!-- <script>
     $(document).ready(function () {
     document.getElementById("imagePopup").style.display = "block";
     });
     function closePopup() {
     document.getElementById("imagePopup").style.display = "none";
     }
-  </script>
+  </script> -->
 @endsection

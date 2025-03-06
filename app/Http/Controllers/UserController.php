@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Mail\CustomVerificationMail;
 use App\Models\MailTrack;
 use App\Models\MemberType;
+use App\Models\Payment;
+use App\Models\Hospital;
+use App\Models\Document;
 use Cookie;
 use Hash;
 use Illuminate\Auth\Events\Registered;
@@ -13,7 +17,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 use Validator;
+use Log;
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
+
 {
     public function register()
     {
@@ -21,12 +28,25 @@ class UserController extends Controller
             return redirect()->route('profile');
         }
         $memberTypes=MemberType::where('IsActive',1)->get();
-        return view('User.register',['memberTypes'=>$memberTypes]);
+        $provincesList = DB::table('provinces')->get(); 
+        $hospitalList = Hospital::all();
+        // dd($hospitalList);
+        return view('User.register',['memberTypes'=>$memberTypes,'provinces'=>$provincesList,'hospitalList'=>$hospitalList]);
     }
     //
+    public function userdashboard()
+    {
+        // dd("userdashboard");
+        $userData=User::getUserData();
+        $price=Payment::getPriceForUser($userData->id);
+        // dd($price);
+        // dd($userData);
+        return view('User.userDashBoard',compact('userData','price'));
+    }
     public function profile()
     {
         $userData=User::getUserData();
+
         //  dd($userData);
         // dd($user);
         // dd($user->FName);
@@ -36,12 +56,25 @@ class UserController extends Controller
 
     public function InsertUser(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'g-recaptcha-response' => 'required|captcha', // Correct rule
+        // $validator=Validator::make($request->all(),[
+        //     //'g-recaptcha-response' => 'required|captcha', // Correct rule
+        // ]);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email', // Email must be a valid email format
+            'FName' => 'required|string|max:255', // First name is required, a string, with a maximum length of 255
+            'LName' => 'required|string|max:255', // Last name is required, a string, with a maximum length of 255
+            'MobileNo' => 'required|digits:10', // Mobile number should be 10 digits
+            'designation' => 'required|string|max:255', // Designation is required, a string, with a maximum length of 255
+            'mealPreference' => 'required|string|in:VEGETARIAN,NON_VEGETARIAN', // Meal preference must be one of the options
+            'paymentProof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Payment proof is required and must be a file (jpg, jpeg, png, or pdf), with a max size of 2MB
+            // 'proofLetter' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Proof letter is required and must be a file (jpg, jpeg, png, or pdf), with a max size of 2MB
+            'MemberType' => 'required|integer', // Member type is required and should be an integer
+            'g-recaptcha-response' => 'required|captcha', // CAPTCHA validation (adjust as needed)
         ]);
-        if($validator->fails()){
-            return redirect()->route('register')->with('error', 'Please verify that you are human by completing the recaptcha');
-        }
+        // dd($request->all());exit;
+        // if($validator->fails()){
+        //     return redirect()->route('register')->with('error', 'Please verify that you are human by completing the recaptcha');
+        // }
         $email=$request->email;
         $userData=User::where('email',$email)->first();
         if($userData){
@@ -62,6 +95,7 @@ class UserController extends Controller
         //     'MedicalCouncilNo' => $request->MedicalCouncilNo??'', 
         // ]);
         $user=new User();
+        $user->Designation=$request->designation??'';
         $user->FName=$request->FName;
         $user->MName=$request->MName??'';
         $user->LName=$request->LName;
@@ -69,46 +103,82 @@ class UserController extends Controller
         $user->MobileNo=$request->MobileNo;
         $user->Gender=$request->gender;
         $user->Country=$request->Country;
+        $user->province = $request->province ;
+        $user->district = $request->district ;  
         $user->Address=$request->Address??'';
-        $user->password=$request->password;
+        $user->password=$request->password?$request->password:$request->MobileNo;
         $user->MemberType=$request->MemberType ? (int) $request->MemberType: 0;
         $user->NepasID=$request->NepasID??'';
         $user->MedicalCouncilNo=$request->MedicalCouncilNo??'';
+        $user->WorkPlace=$request->workplace??'';
+        $user->OtherWorkPlace=$request->otherWorkplace??'';
+        $user->MealPreference=$request->mealPreference??'';
+
         // dd($user);
         try{
             $user->save();
-            Auth::login($user);
-            $request->session()->regenerate();
+             // Check if files are uploaded
+            if ($request->hasFile('paymentProof') ) {
+                // Get file contents
+                $paymentProofContent =  base64_encode(file_get_contents($request->file('paymentProof')->getRealPath()));
+                if($request->hasFile('proofLetter')){
+                    $proofLetterContent = base64_encode(file_get_contents($request->file('proofLetter')->getRealPath()));
+                }else{
+                    $proofLetterContent = '';
+                }
+
+                // Create a Document record to store BLOBs
+                $document = new Document();
+                $document->user_id = $user->id;  // Assuming you want to associate it with the user
+                $document->payment_document = $paymentProofContent;
+                $document->medical_letter_document = $proofLetterContent;
+                // dd($document);
+                $document->save();
+                //  dd();
+                 
+            }
+            // Auth::login($user);
+            // $request->session()->regenerate();
             // $returnData= event(new Registered($user));
-            $isSent= $user->sendEmailVerificationNotification();
+            // $isSent= $user->sendEmailVerificationNotification();
+            return redirect()->route('register')->with('success', 'User Registered successfully ');
             // dd($isSent);
 
-            if($isSent){
-                return redirect(route('verification.notice'))->with('success', 'Email verification link sent');
-            }else{
-                return redirect(route('verification.notice'))->with('warning', 'Could not send email verification link,Please try again later or login');
-            }
+            // if($isSent){
+            //     return redirect(route('verification.notice'))->with('success', 'Email verification link sent');
+            // }else{
+            //     return redirect(route('verification.notice'))->with('warning', 'Could not send email verification link,Please try again later or login');
+            // }
         }catch(\Exception $e){
+            Log::error('Exception Error: ' . $e->getMessage());
             return redirect(route('register'))->with('error', 'Could not Register,Please try again ');
         }
     }
+
     public function updateUser(Request $request)
-{
+    {
+    // dd("HI  update");   
     // Find the user by ID
     $user = User::findOrFail((int)$request->id); 
-
+    // dd($user);
     // Update each field explicitly
     $user->FName = $request->FName;
     $user->MName = $request->MName ?? '';  // Default to an empty string if no middle name
     $user->LName = $request->LName;
     $user->email = $request->email;
+    $user->Designation = $request->designation ?? '';  // Default to an empty string if no designation
     $user->MobileNo = $request->MobileNo;
     $user->Gender = $request->gender;
     $user->Country = $request->Country;
+    $user->province = $request->province ;
+    $user->district = $request->district ;  
     $user->Address = $request->Address ?? '';  // Default to empty string if no address provided
     $user->MemberType = (int) $request->MemberType ?? 0;  // Default to 0 if no MemberType is provided
     $user->NepasID = $request->NepasID ?? '';  // Default to empty string if no NepasID is provided
     $user->MedicalCouncilNo = $request->MedicalCouncilNo ?? '';  // Default to empty string if no MedicalCouncilNo
+    $user->WorkPlace = $request->workplace ?? '';  // Default to empty string if no workplace is provided
+    $user->OtherWorkPlace = $request->otherWorkplace ?? '';  // Default to empty string if no other workplace is provided
+    $user->MealPreference = $request->mealPreference ?? '';  // Default to empty string if no meal preference is provided
     // dd($user);
     // Save the updated user to the database
     if ($user->save()) {
@@ -186,4 +256,39 @@ class UserController extends Controller
     //     return view('User.normalview');
     // }
 
+    public function getDistrictList($id){
+        $districtList = DB::table('districts')
+        ->where('province_id', $id)
+        ->get(['id', 'district_name']);  // Adjust to return the correct fields (e.g., 'id', 'name')
+
+            return response()->json($districtList); 
+    }
+
+    public function getPaymentTypeOnMemberId($id){
+        $payment = Payment::GetPaymentsByMemberType($id);
+        return response()->json($payment);
+    }
+    public function contactUs(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Send email to the admin
+        Mail::to('')->send(new ContactMail());
+    }    
+    public function registerAbstract()
+    {
+        if (Auth::check()) {
+            return redirect()->route('profile');
+        }
+        // $memberTypes=MemberType::where('IsActive',1)->get();
+        // $provincesList = DB::table('provinces')->get(); 
+        // $hospitalList = Hospital::all();
+        // dd($hospitalList);
+        return view('User.registerforabstract',[]);
+    }
 }

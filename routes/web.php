@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\AbstractContentController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthenticateWithError;
-
+Route::get('/ajaxGetDistrictList/{id}', [UserController::class, 'getDistrictList']);
+Route::get('/ajaxGetPaymentTypeOnMemberId/{id}', [UserController::class, 'getPaymentTypeOnMemberId']);
 
 Route::get('/index', function () {
     return view('layout');
@@ -41,6 +43,7 @@ Route::get('/organizingcomitee', function () {
 })->name('organizingcomitee');
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'InsertUser']);
+Route::get('/registerAbstract', [UserController::class, 'registerAbstract'])->name('register.abstract');
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 // Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
@@ -48,6 +51,7 @@ Route::post('/CheckUser', [UserController::class, 'ValidateLogin']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth.error'])->group(function () {
+    Route::get('/userdashboard', [UserController::class, 'userdashboard'])->name('userdashboard');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/abstractsubmit', [AbstractContentController::class, 'index'])->name('abstractsubmit');
     Route::post('/abstractsubmit', [AbstractContentController::class, 'create'])->name('abstract.submit');
@@ -57,6 +61,7 @@ Route::middleware(['auth.error'])->group(function () {
     Route::post('/abstractupdate', [AbstractContentController::class, 'update'])->name('abstract.update');
     Route::post('/abstractdelete', [AbstractContentController::class, 'delete'])->name('abstract.delete');
     Route::get('/abstractview/{id}', [AbstractContentController::class, 'view'])->name('abstractview');
+    // Route::get('/payment', [UserController::class, 'view'])->name('abstractview');
 });
 // Email verification notice route
 Route::get('/email/verify', function () {
@@ -108,3 +113,24 @@ Route::post('/email/resend', function (Request $request) {
     
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 // Route::get('/normalview', [UserController::class, 'normalview'])->name('profile');
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login.post');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+        Route::get('/abstractlist', [AbstractContentController::class, 'allAbstracts'])->name('admin.abstractlist');
+        Route::get('/abstractview/{id}', [AbstractContentController::class, 'adminview'])->name('admin.abstractview');
+        
+        
+
+        Route::get('/userlist', [AdminController::class, 'allUserList'])->name('admin.userlist');
+        Route::post('/update-payment-status', [AdminController::class, 'updatePaymentStatus'])->name('admin.updatepaymentstatus');
+        Route::post('/update-abstract-status', [AbstractContentController::class, 'updateAbstractStatus'])->name('admin.updateabstractstatus');
+    });
+});

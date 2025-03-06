@@ -1,6 +1,12 @@
 @extends('outerpage.mainlayoutinnerpage')
 
 @section('content')
+<style>
+  .os-message{
+    margin-left: 23%;
+    border-radius: 59%;
+  }
+</style>
 <main id="main" class="main-page">
     <!--==========================
     Speaker Details Section
@@ -8,16 +14,16 @@
     <section id="speakers-details" class="wow fadeIn">
       <div class="container">
         <div class="section-header">
-          <h2>Message From Organizing Secretary</h2>
+          <h2>Message From The Organizing Secretary</h2>
           <p></p>
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <img
-              src="{{asset('images/profilepic/Os.jpg')}}"
+              src="{{asset('NEPAS_/Os.png')}}"
               alt="Speaker 1"
-              class="img-fluid img-fluid-1"
+              class="img-fluid os-message"
             />
             <div class="details message-details">
               <h2>Dr. Prakash Joshi</h2>
@@ -26,7 +32,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="details">
+            <div class="details" style="text-align:justify !important;">
               <div class="social">
                 <!-- <a href=""><i class="fa fa-twitter"></i></a>
                 <a href=""><i class="fa fa-facebook"></i></a>
@@ -40,16 +46,13 @@
               This three-day academic event will feature a comprehensive scientific program, including workshops, orations, plenary sessions, chapter symposiums, panel discussions, free paper presentations, and a poster exhibition. Renowned experts from Nepal and across the globe will share their insights on paediatric healthcare advancements, fostering collaboration and innovation in our field. With around 400 local paediatricians and 50 distinguished international delegates, the conference promises to be a vibrant gathering of professionals dedicated to enhancing child health care.
               We encourage you to take this opportunity to engage in stimulating discussions, share your research, and network with peers and global experts. Your active participation will be invaluable in making this conference a resounding success. Let us come together to explore solutions that will help safeguard the future of our children. We look forward to welcoming you to Lalitpur for an enriching and impactful experience.
               <br>
-              <br>
+              <div><img src="{{asset('NEPAS_/prakashjoshisignature.jpeg')}}" alt="" style="width: 119px;"></div>
+              
               Warm regards,
               <br>
-              <br>
-              <b>Dr. Prakash Joshi</b>
               
-              <br>
-              <br>
+              <b>Dr. Prakash Joshi</b>
               <b>Organizing Secretary</b>
-              <br>
               <br>
               <b>XXI <sup>st</sup> NEPCON 2025</b>
             </div>
