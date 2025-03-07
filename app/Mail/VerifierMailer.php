@@ -25,7 +25,7 @@ class VerifierMailer extends Mailable
    public function build(){
     
     return $this->subject('New Abstract Submission for Verification')
-                    ->view('email.verification_email')
+                    ->view('email.verifier_email')
                     ->with([
                         'userData' => $this->user
                     ]);

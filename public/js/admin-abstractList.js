@@ -23,4 +23,19 @@ $(document).ready(function(){
         "autoWidth": false,
         "responsive": true
     });
+    $('#sendEmailModal').on('show.bs.modal', function (event) {
+        console.log("HI");
+        
+        // Get the button that triggered the modal
+        var button = $(event.relatedTarget); 
+        
+        // Get the data-payment-document attribute
+        var abstractId = button.data('abstractid');
+        var userId = button.data('userid');
+        console.log(abstractId,"abstractId");
+        
+        $('#abstractId').val(abstractId);
+        $('#UserId').val(userId);
+
+    });
 });

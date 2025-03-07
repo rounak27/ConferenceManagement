@@ -1,25 +1,25 @@
-@extends('admin.adminlayout')
+@extends('Admin.adminlayout')
 @section('content')
 <div class="col-12 grid-margin">
+
     <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-6">    
-                </div>
-                
-            </div> 
-        </div>
+
+        
+        
         <div class="card-body">
+        <h4 class="card-title">Payment List</h4>
+        <h5 class="card-subtitle card-subtitle-dash">View and Update Payment Status and view Medical Letter for Verification </h5>
+        <hr>
         <div class="table-responsive">
-    <table class="table  table-hover table-bordered ">
+    <table class="table  table-hover table-striped " id="userTable">
         <thead class="">
             <tr>
                 <th >S.No</th>
                 <th >Full Name</th>
                 <th >Member Type</th> 
-                <th >Payment Status</th>
+                <th >Status</th>
                 <th >View</th>
-                <th >Verification Toggle</th>
+                <th >Verification</th>
             </tr>
         </thead>
         <tbody>
@@ -28,34 +28,58 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->FName }} {{ $user->Mname ?? '' }} {{ $user->LName }}</td>
                     <td>{{ $user->MemberTypeName }}</td>
-                    <td>
-                        <span id="payment-status-{{ $user->id }}" class="badge m-0 badge-{{ $user->PaymentStatus == 1 ? 'success' : 'danger' }}">
+                    <td class="text-center">
+                        <span id="payment-status-{{ $user->id }}" class="badge m-0 badge-sm badge-{{ $user->PaymentStatus == 1 ? 'success' : 'danger' }}">
                             {{ $user->PaymentStatus == 1 ? 'Verified' : 'Not Verified' }}
                         </span>
                     </td>
 
 
+
                     <td>
                         <!-- Button to open Payment Voucher Modal -->
                        <!-- Button to open Payment Voucher Modal -->
-                        <button type="button" class="btn btn-info btn-sm m-1" 
+                        <!-- <button type="button" class="btn btn-inverse-info btn-sm m-1" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#paymentModal" 
                                 data-payment-document="{{ $user->payment_document }}" 
                                 title="View Payment Voucher"
                                 data-bs-toggle="tooltip" data-bs-placement="top">
-                                View Payment Voucher
+                                <i class="mdi mdi-eye"></i> Voucher
                         </button>
-                        <br>    
+                        <br>     -->
                         <!-- Button to open Medical Letter Modal -->
-                        <button type="button" class="btn btn-secondary btn-sm m-1" 
+                        <!-- <button type="button" class="btn btn-inverse-secondary btn-sm m-1" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#medicalLetterModal" 
                                 data-medical-document="{{ $user->medical_letter_document }}" 
                                 title="View Medical Letter"
                                 data-bs-toggle="tooltip" data-bs-placement="top">
-                                View Medical Letter
-                        </button>
+                                <i class="mdi mdi-eye"></i> Medical Letter
+                        </button> -->
+                        <div class="btn-group btm-sm" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" fdprocessedid="ulpsy" 
+                             data-bs-toggle="modal" 
+                                data-bs-target="#paymentModal" 
+                                data-payment-document="{{ $user->payment_document }}" 
+                                title="View Payment Voucher"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                >
+                              <i class="fa fa-rupee"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" fdprocessedid="5zifs"
+                            data-bs-toggle="modal" 
+                                data-bs-target="#medicalLetterModal" 
+                                data-medical-document="{{ $user->medical_letter_document }}" 
+                                title="View Medical Letter"
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                            >
+                              <i class="ti-file btn-icon-append"></i>
+                            </button>
+                            <!-- <button type="button" class="btn btn-outline-secondary" fdprocessedid="dh3oun">
+                              <i class="ti-time"></i>
+                            </button> -->
+                          </div>
 
                     </td>
 

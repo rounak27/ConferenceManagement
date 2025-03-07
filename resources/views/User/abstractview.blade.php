@@ -32,14 +32,21 @@
 <div class="col-12 grid-margin">
     <div class="abstract-card">
         <div class="abstract-title">{{$abstract->TopicTitle}}</div>
-        <div class="submitted-date">Submitted on: <strong>{{$abstract->created_at->format('F d, Y')}}</strong></div>
+        <hr>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Submitted on: <strong>{{$abstract->created_at->format('F d, Y')}}</strong></div>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Category: <strong>{{$abstract->category}}</strong></div>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Authors: <strong>{{$abstract->Authors}}</strong></div>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Affiliation: <strong>{{$abstract->Affiliation}}</strong></div>
+        <hr>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Content:</div>
+
         <div class="abstract-content">
             {!! $abstract->AbstractContent !!}
         </div>
-        <div class="abstract-status">
-            Status:
-            <span class="badge badge-{{ $abstract->IsAccepted == 1 ? 'success' : 'danger' }}">{{ $abstract->IsAccepted == 1 ? 'Approved' : 'Not Approved' }}</span>
-        </div>
+        <div class=" card-subtitle card-subtitle-dash  submitted-date">Status: <strong><span class="badge badge-{{ $abstract->IsAccepted == 1 ? 'success' : 'danger' }}">{{ $abstract->IsAccepted == 1 ? 'Approved' : 'Not Approved' }}</span></strong></div>
+
+        
+        <hr>
         <a href="{{route('abstractlist')}}" class="btn btn-primary btn-sm m-1">Back</a>
     </div>
 </div>

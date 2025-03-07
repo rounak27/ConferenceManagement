@@ -193,9 +193,24 @@
     </div>
     <div class="row g-3 mt-2 paymentmodalshow" style="display:none;">
         
-        <div class="col-md-12">
+        <div class="col-md-6">
             <label for="" class="form-label"> Registration Charge  <span ><strong class="pricetag"></strong></span> </br>
-            <button class="btn btn-primary btn-sm paymentqurbutton" type="button">PaymentQR</button></span></label>
+            <button class="btn btn-primary btn-sm paymentqurbutton" type="button" style="display: none;">PaymentQR</button></span></label>
+
+            <!-- <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID"> -->
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+        <img src="{{ asset('images/paymentQR.png') }}" id="qrCodeImage" alt="Payment QR Code" class="img-fluid mb-3">
+        </div>
+        <div class="col-md-4">
+        <a href="{{ asset('images/payment.jpg') }}" class="btn btn-success btn-sm" style=""download>
+          Download QR
+
+        </a>
+        </div>
+        </div>
 
             <!-- <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID"> -->
         </div>

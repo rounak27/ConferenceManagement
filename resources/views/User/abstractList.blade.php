@@ -2,19 +2,14 @@
 @section('content')
 <div class="col-12 grid-margin">
     <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-6">
-                    
-                </div>
-                <div class="col-md-6">
-                    <a href="{{route('abstractsubmit')}}" class="btn btn-sm btn-primary float-end"> Abstract Submit</a>
-                </div>
-            </div> 
-        </div>
+        
         <div class="card-body">
+        <h4 class="card-title">Abstract List</h4>
+        <h5 class="card-subtitle card-subtitle-dash">Submit Your Abstract.<a href="{{route('abstractsubmit')}}" class="btn btn-sm btn-primary float-end "> Abstract Submit</a> </h5>
+        
+        <hr>
             <div class="table-responsive">
-                <table class="table table-bordered abstractListTable">
+                <table class="table table-striped abstractListTable">
                     <thead>
                         <tr>
                             <th>S.No</th>
@@ -32,16 +27,16 @@
                                 {{-- {{dd($abstract->id)}} --}}
                                 <td>{{ $abstract->TopicTitle }}</td>
                                 {{-- <td>{{ $abstract->AbstractContent }}</td> --}}
-                                <td><span class="badge m-0 badge-{{ $abstract->IsAccepted == 1 ? 'success' : 'danger' }}">{{ $abstract->IsAccepted == 1 ? 'Approved' : 'Not Approved' }}</span></td>
+                                <td><span class="badge m-0 badge-sm badge-{{ $abstract->IsAccepted == 1 ? 'success' : 'danger' }}">{{ $abstract->IsAccepted == 1 ? 'Approved' : 'Not Approved' }}</span></td>
                                 <td>{{ $abstract->created_at->format('d-m-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('abstractview', ['id' => encrypt($abstract->id)]) }}" class="btn ">
+                                    <!-- <a href="{{ route('abstractview', ['id' => encrypt($abstract->id)]) }}" class="btn ">
                                         <i class="fa fa-eye"></i>
-                                    </a>
+                                    </a> -->
                                     {{-- <a href="{{ route('abstractedit', ['id' => encrypt($abstract->id)]) }}" class="btn ">
                                         <i class="fa fa-pencil-square-o"></i>
                                     </a> --}}
-                                    <button style="border: none;" 
+                                    <!-- <button style="border: none;" 
                                         class="btn delete-btn" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#confirmDeleteModal" 
@@ -50,7 +45,25 @@
                                         data-toggle="tooltip" 
                                         title="{{$abstract->IsAccepted == 1 ? 'Already accepted.' : ''}}">
                                         <i class="fa fa-trash-o"></i>
-                                    </button>
+                                    </button> -->
+
+                                    <div class="btn-group btm-sm" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" fdprocessedid="ulpsy" 
+                            data-bs-toggle="modal" 
+                                        data-bs-target="#confirmDeleteModal" 
+                                        data-abstractId="{{$abstract->id}}" 
+                                        {{$abstract->IsAccepted == 1 ? 'disabled' : ''}} 
+                                        data-toggle="tooltip" 
+                                        title="{{$abstract->IsAccepted == 1 ? 'Already accepted.' : ''}}">
+                                        <i class="fa fa-trash-o"></i>
+                            </button>
+                            <a type="button" href="{{ route('abstractview', ['id' => encrypt($abstract->id)]) }}"  class="btn btn-outline-primary btn-sm" fdprocessedid="5zifs">
+                              <i class="ti-file btn-icon-append"></i>
+                            </a>
+                            <!-- <button type="button" class="btn btn-outline-secondary" fdprocessedid="dh3oun">
+                              <i class="ti-time"></i>
+                            </button> -->
+                          </div>
                                 </td>
                             </tr>
                         @endforeach

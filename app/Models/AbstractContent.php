@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Mail\AbstractContentMailer;
 use App\Mail\AbstractVerificationMail;
 use App\Mail\VerifierMailer;
 use Exception;
@@ -23,14 +24,15 @@ class AbstractContent extends Model
     public function sendAbstractVerificationNotification($userData)
     {
         $verifiers = DB::table('tbl_verifieremail')->pluck('email')->toArray();
-        
+        // dd($verifiers);
         // dd($userData);
         try {
             // Send email to submitter
             Mail::to($userData->email)->send(new AbstractVerificationMail($userData));
+            // dd('mail sent');
             // Send email to verifiers
             Mail::to($verifiers)->send(new VerifierMailer($userData));    
-
+            // dd('mail sent');
             // Store mail tracking for submitter
             MailTrack::create([
                 'user_id' => $userData->id,
@@ -104,5 +106,10 @@ class AbstractContent extends Model
             ->get();
         }
         return $abstracts;
+    }
+    public static function sendabstractToReader($abstract,$email)
+    {
+        // dd($abstract, $email);   
+        Mail::to($email)->send(new AbstractContentMailer($abstract));
     }
 }

@@ -24,7 +24,7 @@
       related to Paediatrics are allowed.
     </li>
     <li>Do not include tables, figures, or references in the abstract.</li>
-    <li>Submission deadline: <strong>April 30, 2025, 11:59 PM</strong>.</li>
+    <li>Submission deadline: <strong>April 25, 2025, 11:59 PM</strong>.</li>
     <li>The presenting author must be registered with the congress.</li>
     <li>
       Authors take full intellectual responsibility for their submissions.
@@ -73,7 +73,7 @@
     <li>Indicate ethics review approval status (Yes/No).</li>
     <li>No revisions or resubmissions after the deadline.</li>
     <li>Cancellation must be done before the deadline.</li>
-    <li>Notification of acceptance: May 1-5, 2025.</li>
+    <li>Notification of acceptance: 30 April 2025.</li>
   </ul>
 
   <h2>Abstract of Interesting Case Report/Case Series</h2>

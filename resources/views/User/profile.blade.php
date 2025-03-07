@@ -83,7 +83,7 @@
       
     
     <label for="workplace" class="form-label">Meal Preference *</label>
-        <select class="form-select form-select-lg" name="mealPreference" id="mealPreference" required >
+        <select class="form-select form-select" name="mealPreference" id="mealPreference" required >
           <option value=" ">Select Meal Preference</option>
           <option value="VEGETARIAN" {{ isset($userData->MealPreference) && $userData->MealPreference == 'VEGETARIAN' ? 'selected' : '' }}>VEGETARIAN</option>
           <option value="NON VEGETARIAN" {{ isset($userData->MealPreference) && $userData->MealPreference == 'NON VEGETARIAN' ? 'selected' : '' }}>NON VEGETARIAN</option>
@@ -92,23 +92,39 @@
     
     </div>
 
-    <div class="row g-3 mt-2">
-        <div class="col-md-6">
-            <label for="Address" class="form-label">Address</label>
-            <input type="text" class="form-control" name="Address" id="Address" placeholder="Enter Address" value="{{ isset($userData->Address) ? $userData->Address : '' }}">
-        </div>
-        <div class="col-md-6">
-            <label for="Country" class="form-label">Country</label>
-            <input type="text" class="form-control" id="Country" name="Country" placeholder="Enter Country" value="{{ isset($userData->Country) ? $userData->Country : '' }}">
-        </div>
-    </div>
-
     
 
     <div class="row g-3 mt-2">
         <div class="col-md-6">
+            <label for="Address" class="form-label">Province</label>
+            <input type="hidden" name="province_id" id="province_id" value="{{ isset($userData->province) ? $userData->province : '' }}" required>
+            <select name="province" id="province" class="form-select form-select">
+              <option value="">Select Province</option>
+              @foreach($provinces as $province)
+              <option value="{{$province->id}}" {{ isset($userData->province) && $userData->province == $province->id ? 'selected' : '' }}>{{$province->province_name}}</option>
+              @endforeach
+            </select>
+            <!-- <input type="text" class="form-control" name="Address" id="Address" placeholder="Enter Address"> -->
+        </div>
+        <div class="col-md-6">
+            <label for="Address" class="form-label">District</label>
+            <input type="hidden" name="district_id" id="district_id" value="{{ isset($userData->district) ? $userData->district : '' }}" required>
+            <select name="district" id="district"  class="form-select form-select" >
+              <option value="">Select District</option>
+              
+            </select>
+            <!-- <input type="text" class="form-control" name="Address" id="Address" placeholder="Enter Address"> -->
+        </div>
+
+        
+    </div>
+
+    
+
+    <!-- <div class="row g-3 mt-2">
+        <div class="col-md-6">
             <label for="MemberType" class="form-label">Member Type</label>
-            <select class="form-select" id="MemberType" name="MemberType">
+            <select class="form-select" id="MemberType" name="MemberType" {{ isset($userData->MemberType) && $userData->MemberType  !=0 ? 'disabled' : '' }} required>
                 <option value="">Select Member Type</option>
                 @foreach($memberTypes as $memberType)
                 <option value="{{$memberType->id}}" {{ isset($userData->MemberType) && $userData->MemberType == $memberType->id ? 'selected' : '' }}>{{$memberType->name}}</option>
@@ -119,40 +135,94 @@
             <label for="NepasID" class="form-label">Nepas ID</label>
             <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID" value="{{ isset($userData->NepasID) ? $userData->NepasID : '' }}">
         </div>
+    </div> -->
+    <div class="row g-3 mt-2">
+        <div class="col-md-6">
+            <label for="MemberType" class="form-label">Member Type</label>
+            <input type="hidden" name="MemberTypeName" id="MemberTypeName" value="{{ isset($userData->MemberTypeName) ? $userData->MemberTypeName : '' }}">
+            <select class="form-select" id="MemberType" name="MemberType"{{ isset($userData->MemberType) && $userData->MemberType  !=0 ? 'disabled' : '' }} required>
+                <option value="">Select Member Type</option>
+                @foreach($memberTypes as $memberType)
+                <option value="{{$memberType->id}}" {{ isset($userData->MemberType) && $userData->MemberType == $memberType->id ? 'selected' : '' }}>{{$memberType->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        
+        <div class="col-md-6 nepasid" style="display:none;">
+            <label for="NepasID" class="form-label">Nepas ID</label>
+            <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID" value="{{ isset($userData->NepasID) ? $userData->NepasID : '' }}">
+        </div>
     </div>
 
+    <div class="row g-3 mt-2 paymentmodalshow" style="display:none;">
+        <div class="col-md-6">
+            <label for="" class="form-label"> Registration Charge  <span ><strong class="pricetag"></strong></span> </br>
+            <button class="btn btn-primary btn-sm paymentqurbutton" type="button" style="display: none;">PaymentQR</button></span></label>
+
+            <!-- <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID"> -->
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-8">
+        <img src="{{ asset('images/paymentQR.png') }}" id="qrCodeImage" alt="Payment QR Code" class="img-fluid mb-3">
+        </div>
+        <div class="col-md-4">
+        <a href="{{ asset('images/payment.jpg') }}" class="btn btn-success btn-sm" style=""download>
+          Download QR
+
+        </a>
+        </div>
+        </div>
+
+            <!-- <input type="text" class="form-control" id="NepasID" name="NepasID" placeholder="Enter Nepas ID"> -->
+        </div>
+    </div>
     
     <div class="row g-3 mt-2">
     <!-- Workplace -->
     <div class="col-md-6">
     <label for="workplace" class="form-label">WorkPlace *</label>
       <div class="form-group">
-        <input type="text" class="form-control form-control-lg" name="workplace" id="workplace" placeholder="Workplace / Hospital / Institution" required>
+        <input type="hidden" name="workplaceName" id="workplaceName" value="{{ isset($userData->WorkPlace) ? $userData->WorkPlace : '' }}">
+        <select name="workplace" id="workplace"  class="form-select" required>
+          <option value="">Select Workplace</option>
+          @foreach($hospitalList as $hospital)
+          <option value="{{$hospital->name}}" {{ isset($userData->WorkPlace) && $userData->WorkPlace == $hospital->name ? 'selected' : '' }}>{{$hospital->name}}</option>
+          @endforeach
+        </select>
+        <!-- <input type="text" class="form-control form-control-lg" name="workplace" id="workplace" placeholder="Workplace / Hospital / Institution" required> -->
       </div>
     </div>
     <!-- Other Workplace -->
-    <div class="col-md-6">
+    <div class="col-md-6 otherWorkPlace" style="display:none;">
+    <label for="otherWorkplace" class="form-label">Other Workplace</label>
+      <div class="form-group">
+        <input type="text" class="form-control form-control" name="otherWorkplace" id="otherWorkplace"value="{{ isset($userData->OtherWorkPlace) ? $userData->OtherWorkPlace : '' }}"  placeholder="If Other, specify">
+      </div>
+    </div>
+    <!-- Other Workplace -->
+    <!-- <div class="col-md-6">
     <label for="otherWorkplace" class="form-label">Other Workplace</label>
       <div class="form-group">
         <input type="text" class="form-control form-control-lg" name="otherWorkplace" id="otherWorkplace" placeholder="If Other, specify" value="{{ isset($userData->OtherWorkplace) ? $userData->OtherWorkplace : '' }}">
       </div>
-    </div>
+    </div> -->
     
-
-    <div class="row g-3 mt-2">
+    @if(!isset($documents[0]->id))
+    <div class="row g-3 mt-2 " >
         <div class="col-md-6">
             <label for="paymentProof" class="form-label">Upload Payment Proof (Max 10 MB) *</label>
-            <input type="file" class="form-control" id="paymentProof" name="paymentProof" accept="image/*,application/pdf" >
+            <input type="file" class="form-control" id="paymentProof" name="paymentProof" accept="image/*,application/pdf" required>
         </div>
         <div class="col-md-6">
             <label for="proofLetter" class="form-label">Letter of Proof (Resident/MO/Nurse) (Max 10 MB)</label>
-            <input type="file" class="form-control" id="proofLetter" name="proofLetter" accept="image/*,application/pdf">
+            <input type="file" class="form-control" id="proofLetter" name="proofLetter" accept="image/*,application/pdf" required>
         </div>
     </div>
-
+    @endif
     <div class="row mt-4">
         <div class="col text-center">
-            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+            <button type="submit" class="btn btn-inverse-primary btn-lg">Update</button>
         </div>
     </div>
 </form>                   

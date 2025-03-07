@@ -105,13 +105,14 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('admin.abstractlist')}}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Abstract Verification</span>
+                <span class="menu-title">Abstract List</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('admin.userlist')}}">
-                <i class="mdi mdi-grid-large menu-icon"></i>
-                <span class="menu-title">Payment Verification</span>
+              <!-- <i class="fa fa-rupee"></i> -->
+                <i class="menu-icon mdi mdi-file-document"></i>
+                <span class="menu-title">Payment List</span>
               </a>
             </li>
             

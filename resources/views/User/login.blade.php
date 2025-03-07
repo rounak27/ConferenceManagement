@@ -60,7 +60,7 @@
                   @endif
                   <a href="{{url('/')}}" class="auth-link text-black">Home Page</a>
 
-                  <div class="text-center mt-4 fw-light"> Don't have an account? <a href="{{url('register')}}" class="text-primary">Create</a>
+                  <!-- <div class="text-center mt-4 fw-light"> Don't have an account? <a href="{{url('register')}}" class="text-primary">Create</a> -->
                   </div>
                 </form>
               </div>

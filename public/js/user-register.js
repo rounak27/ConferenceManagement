@@ -129,7 +129,7 @@ $(document).ready(function() {
     var selectedText = $(this).find('option:selected').text();
     console.log(selectedText, "text");
     
-    if(selectedText == "NEPAS MEMBERS" || selectedText == "NEPAS MEMBERS SENIOR CITIZEN (>70 YEARS)"){
+    if(selectedText == "NEPAS MEMBERS" || selectedText == "NEPAS MEMBERS (>70 YEARS)"){
         $(".nepasid").show();
     } else {
         $(".nepasid").hide();
@@ -212,39 +212,35 @@ $(document).ready(function() {
     //     }
     // });
 });
-  async function GetlistofDisctrictByStateId(stateId, selected = null) {
-    return new Promise((resolve, reject) => {
-      district
-        .html('<option value="">Please Wait...</option>')
-        .trigger("change");
-      var GetlistofDisctrictByStateId = $.ajax({
-        url: base_url +"/ajaxGetDistrictList/" + stateId,
-        method: "get",
-        dataType: "json",
+async function GetlistofDisctrictByStateId(stateId, selectedDistrict = null) {
+  return new Promise((resolve, reject) => {
+      $("#district")
+          .html('<option value="">Please Wait...</option>')
+          .trigger("change");
+
+      $.ajax({
+          url: base_url + "/ajaxGetDistrictList/" + stateId,
+          method: "get",
+          dataType: "json",
+      })
+      .done(function (res) {
+          let districtDropdown = $("#district");
+          districtDropdown.html("");  // Clear previous options
+          districtDropdown.append('<option value="">Select District</option>'); // Default option
+
+          res.forEach(function (districtData) {
+              let isSelected = selectedDistrict && districtData.id == selectedDistrict ? "selected" : "";
+              districtDropdown.append('<option value="' + districtData.id + '" ' + isSelected + '>' + districtData.district_name + '</option>');
+          });
+
+          resolve(true);
+      })
+      .fail(function (xhr) {
+          $("#district").html("").trigger("change");
+          resolve(false);
       });
+  });
+}
 
-      GetlistofDisctrictByStateId.done(function (res) {
-        // console.log(res);
-        district.html("");
-        district.html("");  // Clear previous options
-
-        // Add the default "Select District" option
-        district.append('<option value="">Select District</option>');
-
-        // Populate the select dropdown with the district data
-        res.forEach(function(districtData) {
-          district.append('<option value="' + districtData.id + '">' + districtData.district_name + '</option>');
-        });
-
-        resolve(true);
-      });
-
-      GetlistofDisctrictByStateId.fail(function (xhr) {
-        district.html("").trigger("change");
-        // district.select2({ data: [] });
-        resolve(false);
-      });
-    });
-  }
     
   });

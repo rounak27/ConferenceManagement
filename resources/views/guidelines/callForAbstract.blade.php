@@ -30,9 +30,9 @@
           <h2>IMPORTANT DATES</h2>
           <ul>
             <li>
-              <b>Abstract Submission Deadline:</b> 30 April 2025, 11:59 PM
+              <b>Abstract Submission Deadline:</b> 25 April 2025, 11:59 PM
             </li>
-            <li><b>Acceptance Notification:</b> 5 May 2025</li>
+            <li><b>Acceptance Notification:</b> 30 April 2025</li>
           </ul>
         </div>
 
@@ -41,13 +41,13 @@
           <ol class="hide">
             <li>
               <b>Step 1:</b> Submit Abstracts by
-              <b>30 April 2025, 11:59 PM</b>
+              <b>25 April 2025, 11:59 PM</b>
             </li>
             <li>
               <b>Step 2:</b> Receive Abstract Submission Acknowledgment Email
             </li>
             <li>
-              <b>Step 3:</b> Receive Acceptance Notice on <b>5 May 2025</b>
+              <b>Step 3:</b> Receive Acceptance Notice on <b>30 April 2025</b>
             </li>
           </ol>
           <!-- How to Submit Abstracts -->
@@ -57,6 +57,7 @@
           <li><b>Step 3:</b> Receive Acceptance Notice and wait for the final acceptance notice.</li>
           </ol>
         </div>
+        <p class="note "><a href="{{route('register.abstract')}}" target="_blank" class="btn btn-primary m-1">Register For Submitting Abstract</a></p>
       </div>
     </section>
   </main>

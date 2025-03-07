@@ -57,10 +57,10 @@
 
         <strong>Submitted By:</strong> {{ $userData->FName }} {{ $userData->LName }} ({{ $userData->email }}) <br>
         <strong>Submitted On:</strong> {{ now()->format('d M, Y') }} <br>
-
+        
         <p>Please review and verify the abstract as soon as possible.</p>
 
-        <a href="{{ route('login') }}" class="button">Review Abstract</a> 
+        <a href="{{ route('admin.login') }}" class="button">Review Abstract</a> 
 
         <p class="footer">Thank you,<br>Abstract Submission Team</p>
     </div>

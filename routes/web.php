@@ -44,7 +44,7 @@ Route::get('/organizingcomitee', function () {
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'InsertUser']);
 Route::get('/registerAbstract', [UserController::class, 'registerAbstract'])->name('register.abstract');
-
+Route::post('/registerAbstract', [UserController::class, 'InsertUserforAbstractSubmit']);
 Route::get('/login', [UserController::class, 'login'])->name('login');
 // Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 Route::post('/CheckUser', [UserController::class, 'ValidateLogin']);
@@ -61,6 +61,10 @@ Route::middleware(['auth.error'])->group(function () {
     Route::post('/abstractupdate', [AbstractContentController::class, 'update'])->name('abstract.update');
     Route::post('/abstractdelete', [AbstractContentController::class, 'delete'])->name('abstract.delete');
     Route::get('/abstractview/{id}', [AbstractContentController::class, 'view'])->name('abstractview');
+    
+
+    Route::get('/emailtest', [AbstractContentController::class, 'emailtest'])->name('emailtest');
+
     // Route::get('/payment', [UserController::class, 'view'])->name('abstractview');
 });
 // Email verification notice route
@@ -126,7 +130,7 @@ Route::prefix('admin')->group(function () {
         })->name('admin.dashboard');
         Route::get('/abstractlist', [AbstractContentController::class, 'allAbstracts'])->name('admin.abstractlist');
         Route::get('/abstractview/{id}', [AbstractContentController::class, 'adminview'])->name('admin.abstractview');
-        
+        Route::post('/abstractSendMail', [AbstractContentController::class, 'sendAbstractMailtoVerifier'])->name('admin.abstract.sendmail');
         
 
         Route::get('/userlist', [AdminController::class, 'allUserList'])->name('admin.userlist');

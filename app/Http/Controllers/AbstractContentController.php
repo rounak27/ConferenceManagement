@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AbstractContentMailer;
 use App\Models\AbstractContent;
 use App\Models\Admin;
 use Crypt;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Log;
+use Mail;
 class AbstractContentController extends Controller
 {
     /**
@@ -38,10 +40,15 @@ class AbstractContentController extends Controller
 
         $abstract->TopicTitle=$request->title;
         $abstract->AbstractContent=$request->abstract_content;
-
+        $abstract->category=$request->category;
+        // authors
+        $abstract->Authors=$request->authors;
+        // affiliation
+        $abstract->Affiliation=$request->affiliation;
         // $abstract->UserId=0;
         $abstract->UserId=(int)$request->user_id;
         // dd($abstract);
+
         $isSaved=false;
         try{
             $abstract->save();
@@ -158,7 +165,7 @@ class AbstractContentController extends Controller
 
         // dd($abstract->TopicTitle);
         // $userData=User::getUserData();
-        return view('admin.abstractview', compact('abstract','admindata'));
+        return view('Admin.abstractview', compact('abstract','admindata'));
     }
     public function updateAbstractStatus(Request $request)
     {
@@ -178,5 +185,47 @@ class AbstractContentController extends Controller
             Log::error('Abstract status update failed: ' . $e->getMessage());
             return redirect()->route('admin.abstractlist')->with('error','Abstract status update failed');
         }
+    }
+
+    public function sendAbstractMailtoVerifier(Request $request)
+    {
+        // dd($request->all());
+        try{
+        $abstract=AbstractContent::getAbstracts((int)$request->abstractId);
+        // dd($abstract);
+        if (!empty($abstract)) {
+
+            $abstract = $abstract[0];
+        }
+       
+        // dd($userData);
+        $email=$request->emails;
+        // dd($email);
+        
+        $abstract->assignedto =$email;
+        $abstract->save();
+
+        // $abstract->sendabstractToReader($email);
+        $isSent=AbstractContent::sendabstractToReader($abstract,$email);
+        // dd($maiLTo);
+            return redirect()->route('admin.abstractlist')->with('success','Abstract verification email sent successfully');
+        }
+        catch(\Exception $e){
+            Log::error('Abstract sending failed: ' . $e->getMessage());
+            return redirect()->route('admin.abstractlist')->with('error','Abstract verification email sending failed');
+        }
+    }
+    public function emailtest()
+    {
+        $abstract=AbstractContent::getAbstracts(1);
+        // dd($abstract);
+        if (!empty($abstract)) {
+
+            $abstract = $abstract[0];
+        }
+        return  view('email.emailSend', ['abstract' => $abstract]);
+            // 'abstract'=>$abstract
+        
+        
     }
 }

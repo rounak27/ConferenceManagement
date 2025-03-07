@@ -52,7 +52,7 @@
             <h4>New here?</h4>
             <h6 class="fw-light">Register Yourself to Join the NEPAS Conference</h6>
 
-            <form id="signupForm" action="{{url('register')}}" method="post" class="pt-3" enctype="multipart/form-data">
+            <form id="signupForm" action="{{url('registerAbstract')}}" method="post" class="pt-3" enctype="multipart/form-data">
     @csrf
     <div class="row g-3 mt-2">
     <div class="col-md-6">

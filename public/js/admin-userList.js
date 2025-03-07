@@ -6,6 +6,11 @@ $(document).ready(function () {
   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
       new bootstrap.Tooltip(tooltipTriggerEl)
   });
+  $('#userTable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+  });
   $('.paymentStatusToggle').change(function () {
       var userId = $(this).data('user-id');
       var paymentStatus = $(this).prop('checked') ? 1 : 0;  // 1 for checked, 0 for unchecked
